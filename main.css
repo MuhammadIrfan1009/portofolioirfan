@@ -254,15 +254,15 @@ h2 {
     background-color: var(--accent-color);
 }
 
-.bahasaindonesia {
-    width: 80%;
+.php {
+    width: 60%;
 }
 
-.bahasamelayu {
-    width: 70%;
+.java {
+    width: 50%;
 }
 
-.english {
+.py {
     width: 40%;
 }
 
