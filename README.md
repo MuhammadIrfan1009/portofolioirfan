@@ -1,7 +1,7 @@
 # Portfolio Muhammad Irfan
 
 ## Deskripsi
-Website portofolio pribadi untuk menampilkan data diri, hobi, pemain favorit, dan form kontak.
+Website portofolio pribadi untuk menampilkan data diri, portofolio, pendidikan dan kontak.
 
 ## Teknologi
 - HTML 5 (Semantic)
@@ -26,8 +26,3 @@ Website portofolio pribadi untuk menampilkan data diri, hobi, pemain favorit, da
 - Chrome, Firefox, Safari, Edge (terbaru)
 ```
 
-```
-node_modules/
-.env
-.DS_Store
-*.log
