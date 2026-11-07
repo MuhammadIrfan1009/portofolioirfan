@@ -81,6 +81,14 @@ main#main-content {
   font-size: var(--type-meta-s);
   color: var(--accent);
   background: var(--surface-panel);
+  transition: border-color var(--transition-base), color var(--transition-base), transform var(--transition-base);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-brand:hover .nav-monogram {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
 }
 
 .nav-wordmark {
@@ -112,7 +120,27 @@ main#main-content {
   transition: color var(--transition-base);
 }
 
-.nav-link:hover,
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--accent);
+  transition: width var(--transition-base) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-link:hover {
+    color: var(--text-primary);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+}
+
 .nav-link:focus-visible {
   color: var(--text-primary);
 }
@@ -125,13 +153,7 @@ main#main-content {
 
 .nav-link.active::after,
 .nav-link[aria-current="true"]::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--accent);
+  width: 100%;
 }
 
 .theme-toggle {
@@ -146,12 +168,29 @@ main#main-content {
   cursor: pointer;
   background: var(--surface-panel);
   font-size: 1rem;
-  transition: border-color var(--transition-base), color var(--transition-base), background-color var(--transition-base);
+  transition: border-color var(--transition-base), color var(--transition-base), background-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
 }
 
-.theme-toggle:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+@media (hover: hover) and (pointer: fine) {
+  .theme-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(193, 139, 97, 0.18);
+  }
+
+  .theme-toggle:hover span {
+    transform: rotate(180deg);
+  }
+}
+
+.theme-toggle:active {
+  transform: translateY(0);
+}
+
+.theme-toggle span {
+  display: inline-block;
+  transition: transform var(--transition-smooth) var(--ease-out);
 }
 
 .nav-mobile-bar {
@@ -185,12 +224,19 @@ main#main-content {
   color: var(--text-primary);
   background: var(--surface-panel);
   cursor: pointer;
-  transition: border-color var(--transition-base), color var(--transition-base);
+  transition: border-color var(--transition-base), color var(--transition-base), transform var(--transition-base);
 }
 
-.nav-menu-btn:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+@media (hover: hover) and (pointer: fine) {
+  .nav-menu-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+}
+
+.nav-menu-btn:active {
+  transform: translateY(0);
 }
 
 dialog.nav-drawer {
@@ -252,12 +298,19 @@ dialog.nav-drawer::backdrop {
   color: var(--text-primary);
   background: var(--surface-canvas);
   cursor: pointer;
-  transition: border-color var(--transition-base), color var(--transition-base);
+  transition: border-color var(--transition-base), color var(--transition-base), transform var(--transition-base);
 }
 
-.nav-drawer-close:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+@media (hover: hover) and (pointer: fine) {
+  .nav-drawer-close:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+}
+
+.nav-drawer-close:active {
+  transform: translateY(0);
 }
 
 .nav-drawer-links {
@@ -282,8 +335,10 @@ dialog.nav-drawer::backdrop {
   transition: color var(--transition-base), padding-left var(--transition-base);
 }
 
-.nav-drawer-link:hover {
-  color: var(--accent);
+@media (hover: hover) and (pointer: fine) {
+  .nav-drawer-link:hover {
+    color: var(--accent);
+  }
 }
 
 .nav-drawer-link.active,
@@ -314,12 +369,19 @@ dialog.nav-drawer::backdrop {
   font-family: var(--font-body);
   font-size: var(--type-body-s);
   cursor: pointer;
-  transition: border-color var(--transition-base), color var(--transition-base);
+  transition: border-color var(--transition-base), color var(--transition-base), transform var(--transition-base);
 }
 
-.theme-toggle--drawer:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+@media (hover: hover) and (pointer: fine) {
+  .theme-toggle--drawer:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+}
+
+.theme-toggle--drawer:active {
+  transform: translateY(0);
 }
 
 @media (max-width: 1199px) {

@@ -26,6 +26,23 @@ body {
   transition: background-color var(--transition-theme), color var(--transition-theme);
 }
 
+.site-header,
+.site-footer,
+.section,
+.mind-card,
+.toolkit-domain,
+.toolkit-tag,
+.project-card,
+.project-image-wrapper,
+.timeline-content,
+.social-link,
+dialog.project-dialog,
+dialog.nav-drawer {
+  transition: background-color var(--transition-theme),
+    border-color var(--transition-theme),
+    color var(--transition-theme);
+}
+
 h1,
 h2,
 h3,

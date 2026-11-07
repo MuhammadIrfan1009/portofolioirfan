@@ -6,7 +6,7 @@
   "scripts": {
     "bundle": "esbuild js/main.js --bundle --outfile=js/bundle.js --format=iife",
     "dev": "vite",
-    "build": "npm run bundle && vite build && node -e \"require('fs').mkdirSync('dist/js', {recursive: true}); require('fs').copyFileSync('js/bundle.js', 'dist/js/bundle.js')\"",
+    "build": "npm run bundle && vite build && node -e \"const fs = require('fs'); fs.mkdirSync('dist/js', {recursive: true}); fs.copyFileSync('js/bundle.js', 'dist/js/bundle.js'); fs.cpSync('img', 'dist/img', {recursive: true});\"",
     "preview": "vite preview"
   },
   "dependencies": {

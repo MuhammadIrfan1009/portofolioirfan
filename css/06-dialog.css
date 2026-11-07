@@ -13,7 +13,8 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  margin-top: var(--space-4);
+  margin-top: auto;
+  padding-top: var(--space-4);
   font-family: var(--font-mono);
   font-size: var(--type-meta-s);
   color: var(--accent);
@@ -113,12 +114,17 @@ body.dialog-open {
   color: var(--text-primary);
   background: var(--surface-panel);
   cursor: pointer;
-  transition: border-color var(--transition-base), color var(--transition-base), background-color var(--transition-base);
+  transition: border-color var(--transition-base), color var(--transition-base), background-color var(--transition-base), transform var(--transition-base);
 }
 
 .project-dialog-close:hover {
   border-color: var(--accent);
   color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.project-dialog-close:active {
+  transform: translateY(0);
 }
 
 .project-dialog-close:focus-visible {
@@ -154,18 +160,20 @@ body.dialog-open {
 .project-dialog-media {
   width: 100%;
   border: 1px solid var(--surface-border);
-  background: var(--surface-canvas);
+  background: var(--surface-band);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  flex-shrink: 0;
+  border-radius: 2px;
 }
 
 .project-dialog-media img {
   width: 100%;
   height: auto;
-  max-height: 380px;
-  object-fit: cover;
+  max-height: 520px;
+  object-fit: contain;
   display: block;
 }
 

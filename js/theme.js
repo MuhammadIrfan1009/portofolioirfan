@@ -19,9 +19,13 @@ export function initTheme() {
 
     if (desktopToggle) {
       desktopToggle.setAttribute('aria-label', label);
+      desktopToggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+      desktopToggle.setAttribute('title', label);
     }
     if (drawerToggle) {
       drawerToggle.setAttribute('aria-label', label);
+      drawerToggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+      drawerToggle.setAttribute('title', label);
       const textSpan = drawerToggle.querySelector('.theme-toggle-label');
       if (textSpan) textSpan.textContent = drawerLabelText;
     }
@@ -33,22 +37,30 @@ export function initTheme() {
     applyTheme(next);
   }
 
-  // Initial theme
   applyTheme(getPreferredTheme());
 
-  // Listeners
   if (desktopToggle) {
     desktopToggle.addEventListener('click', toggleTheme);
+    desktopToggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleTheme();
+      }
+    });
   }
   if (drawerToggle) {
     drawerToggle.addEventListener('click', toggleTheme);
+    drawerToggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleTheme();
+      }
+    });
   }
 
-  // System preference change listener
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
     if (!localStorage.getItem('theme')) {
       applyTheme(e.matches ? 'dark' : 'light');
     }
   });
 }
-

@@ -23,66 +23,66 @@ export function initProjectShowcase() {
       placeholder: 'Tangkapan layar proyek SI FEST 2026',
       image: 'img/img6.png',
       roles: ['PIC Frontend Website', 'PIC Backend Chatbot Oscar'],
-      note: 'Chatbot Oscar sudah terintegrasi pada website SI FEST.',
+      note: 'Website resmi kegiatan festival Sistem Informasi dengan integrasi Chatbot Oscar untuk layanan informasi interaktif.',
       link: 'https://sifestunsri.com',
       linkLabel: 'sifestunsri.com ↗'
     },
     'SYS-002': {
       id: 'SYS-002',
       title: 'LOKA NIKAH',
-      subtitle: 'Project Showcase',
+      subtitle: 'Platform Reservasi Wedding Organizer',
       placeholder: 'Tangkapan layar proyek Loka Nikah',
       image: 'img/img5.png',
-      roles: [],
-      note: 'Tugas kelompok mata kuliah. Kontribusi frontend dan backend.',
+      roles: ['Frontend & Backend Implementation'],
+      note: 'Website wedding organizer yang menyediakan katalog layanan dan reservasi paket pernikahan secara online. Merupakan proyek kuliah (tugas kelompok) dengan kontribusi pada sisi frontend dan backend.',
       link: 'https://loka-nikah.vercel.app',
       linkLabel: 'loka-nikah.vercel.app ↗'
     },
     'SYS-003': {
       id: 'SYS-003',
-      title: 'E-KOMDIGI',
-      subtitle: 'Project Showcase',
+      title: 'LINKTREE HIMSI',
+      subtitle: 'Landing Page Kurasi Tautan Organisasi',
       placeholder: null,
-      image: 'img/img3.png',
-      imageAlt: 'Tangkapan layar proyek E-Komdigi',
+      image: 'img/img2.png',
+      imageAlt: 'Tangkapan layar proyek Linktree HIMSI',
       roles: [],
-      note: 'Website sederhana untuk pengelolaan arsip surat kantor.',
+      note: 'Landing page kurasi tautan resmi untuk mempermudah navigasi informasi dan media komunikasi organisasi HIMSI.',
       link: null,
       linkLabel: null
     },
     'SYS-004': {
       id: 'SYS-004',
       title: 'ABSENGO',
-      subtitle: 'Project Showcase',
+      subtitle: 'Sistem Presensi Magang Instansi',
       placeholder: null,
       image: 'img/img4.png',
       imageAlt: 'Tangkapan layar proyek AbsenGo',
       roles: [],
-      note: 'Website absensi untuk pekerja magang kantor pemerintah.',
+      note: 'Website presensi digital untuk pencatatan dan monitoring kehadiran pekerja magang di kantor pemerintah.',
       link: null,
       linkLabel: null
     },
     'SYS-005': {
       id: 'SYS-005',
-      title: 'LINKTREE HIMSI',
-      subtitle: 'Project Showcase',
+      title: 'E-KOMDIGI',
+      subtitle: 'Sistem Pengarsipan Surat Kantor',
       placeholder: null,
-      image: 'img/img2.png',
-      imageAlt: 'Tangkapan layar proyek Linktree HIMSI',
+      image: 'img/img3.png',
+      imageAlt: 'Tangkapan layar proyek E-Komdigi',
       roles: [],
-      note: 'Landing page kurasi tautan resmi organisasi.',
+      note: 'Website internal untuk pengelolaan, pencatatan, dan pengarsipan surat dinas kantor secara digital.',
       link: null,
       linkLabel: null
     },
     'SYS-006': {
       id: 'SYS-006',
       title: 'GORYUK',
-      subtitle: 'Project Showcase',
+      subtitle: 'Platform Reservasi Gelanggang Olahraga',
       placeholder: null,
       image: 'img/img1.png',
       imageAlt: 'Tangkapan layar proyek GorYuk',
       roles: [],
-      note: 'Website pemesanan online gor olahraga.',
+      note: 'Website lokal untuk pemesanan online gelanggang olahraga secara umum. Merupakan proyek sekolah yang dibangun menggunakan PHP Native.',
       link: null,
       linkLabel: null
     }
@@ -104,8 +104,12 @@ export function initProjectShowcase() {
       subtitleEl.style.display = 'none';
     }
 
-    if (data.image) {
-      mediaEl.innerHTML = `<img src="${data.image}" alt="${data.imageAlt || data.title}" width="780" height="380" loading="eager">`;
+    const cardImg = triggerEl ? triggerEl.querySelector('.project-image') : null;
+    const finalImageSrc = cardImg ? cardImg.getAttribute('src') : data.image;
+    const finalImageAlt = cardImg ? cardImg.getAttribute('alt') : (data.imageAlt || data.title);
+
+    if (finalImageSrc) {
+      mediaEl.innerHTML = `<img src="${finalImageSrc}" alt="${finalImageAlt}" loading="eager">`;
       mediaEl.style.display = 'block';
     } else if (data.placeholder) {
       mediaEl.innerHTML = `<div class="project-image-placeholder"><span class="project-image-placeholder-label">${data.placeholder}</span></div>`;

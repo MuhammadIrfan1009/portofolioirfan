@@ -4,6 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        (function () {
+            try {
+                var s = localStorage.getItem('theme');
+                var d = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                var t = (s === 'dark' || s === 'light') ? s : (d ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', t);
+            } catch (e) {}
+        })();
+    </script>
     <meta name="description"
         content="Muhammad Irfan — S1 Sistem Informasi, Universitas Sriwijaya. The Systems Atelier.">
 
@@ -42,7 +52,7 @@
     <header class="site-header">
         <nav class="nav-desktop" aria-label="Primary navigation">
             <a class="nav-brand" href="#entrance" aria-label="THE SYSTEMS ATELIER — return to top">
-                <span class="nav-monogram" aria-hidden="true">SA</span>
+                <span class="nav-monogram" aria-hidden="true">Fan</span>
                 <span class="nav-wordmark">THE SYSTEMS ATELIER</span>
             </a>
 
@@ -51,7 +61,7 @@
                 <li><a class="nav-link" href="#toolkit">03 Toolkit</a></li>
                 <li><a class="nav-link" href="#works">04 Works</a></li>
                 <li><a class="nav-link" href="#people">05 People</a></li>
-                <li><a class="nav-link" href="#connection">06 Contact</a></li>
+                <li><a class="nav-link" href="#connection">06 Connection</a></li>
             </ul>
 
             <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme">
@@ -152,6 +162,7 @@
             <div class="section-inner">
                 <p class="section-index-label" aria-hidden="true">02</p>
                 <h2 class="section-title" id="mind-heading">THE MIND</h2>
+                <p class="section-subtitle">Philosophy &amp; Professional Approach.</p>
 
                 <div class="mind-cards">
                     <article class="mind-card">
@@ -173,8 +184,8 @@
                     <article class="mind-card">
                         <h3 class="mind-card-title">THE COLLABORATOR</h3>
                         <p class="mind-card-body">
-                            Aktif berkontribusi dalam organisasi mahasiswa dan kepanitiaan
-                            IT untuk mendukung kebutuhan operasional serta infrastruktur kegiatan.
+                            Active collaborator in student organizations and IT committees,
+                            connecting operational needs with reliable digital execution.
                         </p>
                     </article>
                 </div>
@@ -182,11 +193,10 @@
                 <div class="mind-bio">
                     <p>
                         Mahasiswa Sistem Informasi Universitas Sriwijaya yang berfokus
-                        pada pengembangan web menggunakan framework Laravel. Aktif berkontribusi
-                        dalam organisasi mahasiswa dan kepanitiaan IT untuk mendukung
-                        kebutuhan operasional serta infrastruktur kegiatan. Berorientasi
-                        pada penerapan teknologi untuk efisiensi sistem dan penyelesaian
-                        masalah nyata di lingkungan profesional.
+                        pada pengembangan web menggunakan framework Laravel. Memiliki pengalaman
+                        dalam membangun aplikasi manajemen internal serta aktif berkontribusi
+                        dalam kepanitiaan IT kampus. Berorientasi pada penerapan teknologi
+                        untuk efisiensi sistem dan penyelesaian masalah nyata di lingkungan profesional.
                     </p>
                 </div>
             </div>
@@ -264,11 +274,11 @@
                             <span class="project-id">SYS-001 / FEATURED</span>
                             <h3 class="project-title" id="sys-001-title">SI FEST 2026</h3>
                             <p class="project-subtitle">
-                                Sistem Informasi Festival 2026
+                                Sistem Informasi Festival 2026 Website
                             </p>
                         </header>
 
-                        <div class="project-image-placeholder" aria-label="Tangkapan layar proyek SI FEST 2026">
+                        <div class="project-image-wrapper">
                             <img src="img/img6.png" alt="Tangkapan layar proyek SI FEST 2026" class="project-image"
                                 width="798" height="375" loading="lazy">
                         </div>
@@ -279,7 +289,7 @@
                                 <li>PIC Backend Chatbot Oscar</li>
                             </ul>
                             <p class="project-note">
-                                Chatbot Oscar sudah terintegrasi pada website SI FEST.
+                                Website resmi kegiatan festival Sistem Informasi dengan integrasi Chatbot Oscar untuk layanan informasi interaktif.
                             </p>
                             <a class="project-link" href="https://sifestunsri.com" target="_blank"
                                 rel="noopener noreferrer"
@@ -293,16 +303,19 @@
                         <header class="project-card-header">
                             <span class="project-id">SYS-002</span>
                             <h3 class="project-title" id="sys-002-title">LOKA NIKAH</h3>
+                            <p class="project-subtitle">
+                                Platform Reservasi Wedding Organizer
+                            </p>
                         </header>
 
-                        <div class="project-image-placeholder" aria-label="Tangkapan layar proyek LOKA NIKAH">
+                        <div class="project-image-wrapper">
                             <img src="img/img5.png" alt="Tangkapan layar proyek LOKA NIKAH" class="project-image"
                                 width="798" height="375" loading="lazy">
                         </div>
 
                         <div class="project-body">
                             <p class="project-note">
-                                Tugas kelompok mata kuliah. Kontribusi frontend dan backend.
+                                Website wedding organizer yang menyediakan katalog layanan dan reservasi paket pernikahan secara online. Merupakan proyek kuliah (tugas kelompok) dengan kontribusi pada sisi frontend dan backend.
                             </p>
                             <a class="project-link" href="https://loka-nikah.vercel.app" target="_blank"
                                 rel="noopener noreferrer"
@@ -315,43 +328,10 @@
                     <article class="project-card" aria-labelledby="sys-003-title">
                         <header class="project-card-header">
                             <span class="project-id">SYS-003</span>
-                            <h3 class="project-title" id="sys-003-title">E-KOMDIGI</h3>
-                        </header>
-
-                        <div class="project-image-wrapper">
-                            <img src="img/img3.png" alt="Tangkapan layar proyek E-Komdigi" class="project-image"
-                                width="798" height="375" loading="lazy">
-                        </div>
-
-                        <div class="project-body">
-                            <p class="project-note">
-                                Website sederhana untuk pengelolaan arsip surat kantor.
+                            <h3 class="project-title" id="sys-003-title">LINKTREE HIMSI</h3>
+                            <p class="project-subtitle">
+                                Landing Page Kurasi Tautan Organisasi
                             </p>
-                        </div>
-                    </article>
-
-                    <article class="project-card" aria-labelledby="sys-004-title">
-                        <header class="project-card-header">
-                            <span class="project-id">SYS-004</span>
-                            <h3 class="project-title" id="sys-004-title">ABSENGO</h3>
-                        </header>
-
-                        <div class="project-image-wrapper">
-                            <img src="img/img4.png" alt="Tangkapan layar proyek AbsenGo" class="project-image"
-                                width="1908" height="926" loading="lazy">
-                        </div>
-
-                        <div class="project-body">
-                            <p class="project-note">
-                                Website absensi untuk pekerja magang kantor pemerintah.
-                            </p>
-                        </div>
-                    </article>
-
-                    <article class="project-card" aria-labelledby="sys-005-title">
-                        <header class="project-card-header">
-                            <span class="project-id">SYS-005</span>
-                            <h3 class="project-title" id="sys-005-title">LINKTREE HIMSI</h3>
                         </header>
 
                         <div class="project-image-wrapper">
@@ -361,7 +341,49 @@
 
                         <div class="project-body">
                             <p class="project-note">
-                                Landing page kurasi tautan resmi organisasi.
+                                Landing page kurasi tautan resmi untuk mempermudah navigasi informasi dan media komunikasi organisasi HIMSI.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="project-card" aria-labelledby="sys-004-title">
+                        <header class="project-card-header">
+                            <span class="project-id">SYS-004</span>
+                            <h3 class="project-title" id="sys-004-title">ABSENGO</h3>
+                            <p class="project-subtitle">
+                                Sistem Presensi Magang Instansi
+                            </p>
+                        </header>
+
+                        <div class="project-image-wrapper">
+                            <img src="img/img4.png" alt="Tangkapan layar proyek AbsenGo" class="project-image"
+                                width="1908" height="926" loading="lazy">
+                        </div>
+
+                        <div class="project-body">
+                            <p class="project-note">
+                                Website presensi digital untuk pencatatan dan monitoring kehadiran pekerja magang di kantor pemerintah.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="project-card" aria-labelledby="sys-005-title">
+                        <header class="project-card-header">
+                            <span class="project-id">SYS-005</span>
+                            <h3 class="project-title" id="sys-005-title">E-KOMDIGI</h3>
+                            <p class="project-subtitle">
+                                Sistem Pengarsipan Surat Kantor
+                            </p>
+                        </header>
+
+                        <div class="project-image-wrapper">
+                            <img src="img/img3.png" alt="Tangkapan layar proyek E-Komdigi" class="project-image"
+                                width="798" height="375" loading="lazy">
+                        </div>
+
+                        <div class="project-body">
+                            <p class="project-note">
+                                Website internal untuk pengelolaan, pencatatan, dan pengarsipan surat dinas kantor secara digital.
                             </p>
                         </div>
                     </article>
@@ -370,6 +392,9 @@
                         <header class="project-card-header">
                             <span class="project-id">SYS-006</span>
                             <h3 class="project-title" id="sys-006-title">GORYUK</h3>
+                            <p class="project-subtitle">
+                                Platform Reservasi Gelanggang Olahraga
+                            </p>
                         </header>
 
                         <div class="project-image-wrapper">
@@ -379,7 +404,7 @@
 
                         <div class="project-body">
                             <p class="project-note">
-                                Website pemesanan online gor olahraga.
+                                Website lokal untuk pemesanan online gelanggang olahraga secara umum. Merupakan proyek sekolah yang dibangun menggunakan PHP Native.
                             </p>
                         </div>
                     </article>
@@ -399,14 +424,15 @@
                     <article class="timeline-entry" aria-labelledby="exp-sifest-tid-title">
                         <div class="timeline-node" aria-hidden="true"></div>
                         <div class="timeline-content">
+                            <p class="timeline-date">2026</p>
                             <p class="timeline-org">SI FEST 2026</p>
                             <h3 class="timeline-role" id="exp-sifest-tid-title">
-                                Staff Technology Information Development
+                                Staff Technology And Information Development
                             </h3>
                             <ul class="timeline-responsibilities" role="list">
-                                <li>PIC Frontend Website.</li>
+                                <li>PIC Frontend Website kegiatan.</li>
                                 <li>PIC Backend Chatbot Oscar.</li>
-                                <li>Chatbot Oscar sudah terintegrasi pada website SI FEST.</li>
+                                <li>Mengintegrasikan Chatbot Oscar ke dalam website utama SI FEST.</li>
                             </ul>
                         </div>
                     </article>
@@ -414,13 +440,14 @@
                     <article class="timeline-entry" aria-labelledby="exp-sifest-seminar-title">
                         <div class="timeline-node" aria-hidden="true"></div>
                         <div class="timeline-content">
+                            <p class="timeline-date">2026</p>
                             <p class="timeline-org">SI FEST 2026</p>
                             <h3 class="timeline-role" id="exp-sifest-seminar-title">
                                 Staff Divisi Seminar
                             </h3>
                             <ul class="timeline-responsibilities" role="list">
-                                <li>Menjadi LO operator.</li>
-                                <li>Membantu penyusunan konsep acara.</li>
+                                <li>Liaison Officer (LO) operator acara seminar.</li>
+                                <li>Membantu penyusunan dan koordinasi konsep acara.</li>
                             </ul>
                         </div>
                     </article>
@@ -428,12 +455,13 @@
                     <article class="timeline-entry" aria-labelledby="exp-uxexpo-title">
                         <div class="timeline-node" aria-hidden="true"></div>
                         <div class="timeline-content">
+                            <p class="timeline-date">2026</p>
                             <p class="timeline-org">UX Exhibition 2026</p>
                             <h3 class="timeline-role" id="exp-uxexpo-title">Staff Acara</h3>
                             <ul class="timeline-responsibilities" role="list">
-                                <li>Menyusun rundown acara.</li>
-                                <li>Menjadi LO operator.</li>
-                                <li>Membantu penyusunan konsep acara.</li>
+                                <li>Menyusun dan mengelola rundown kegiatan pameran.</li>
+                                <li>Liaison Officer (LO) operator teknis.</li>
+                                <li>Membantu perancangan konsep acara.</li>
                             </ul>
                         </div>
                     </article>
@@ -441,6 +469,7 @@
                     <article class="timeline-entry" aria-labelledby="exp-pkkmb-title">
                         <div class="timeline-node" aria-hidden="true"></div>
                         <div class="timeline-content">
+                            <p class="timeline-date">2025</p>
                             <p class="timeline-org">PKKMB Departemen Sistem Informasi</p>
                             <h3 class="timeline-role" id="exp-pkkmb-title">Staff Perlengkapan</h3>
                         </div>
@@ -449,6 +478,7 @@
                     <article class="timeline-entry" aria-labelledby="exp-inagurasi-title">
                         <div class="timeline-node" aria-hidden="true"></div>
                         <div class="timeline-content">
+                            <p class="timeline-date">2026</p>
                             <p class="timeline-org">Inagurasi SI 2026</p>
                             <h3 class="timeline-role" id="exp-inagurasi-title">Staff Pubdok</h3>
                         </div>
@@ -502,16 +532,33 @@
             <div class="section-inner">
                 <p class="section-index-label" aria-hidden="true">06</p>
                 <h2 class="section-title" id="connection-heading">THE CONNECTION</h2>
+                <p class="section-subtitle">Network &amp; Collaboration Channels.</p>
 
                 <div class="connection-layout">
+                    <p class="connection-lead">
+                        Terbuka untuk kolaborasi rekayasa perangkat lunak, eksplorasi sistem informasi, dan peluang profesional.
+                    </p>
                     <div class="connection-channels">
-                        <nav class="social-links" aria-label="Profil sosial">
+                        <nav class="social-links" aria-label="Kanal komunikasi">
                             <ul role="list">
                                 <li>
                                     <a class="social-link" href="https://github.com/MuhammadIrfan1009" target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label="Muhammad Irfan di GitHub (buka di tab baru)">
                                         GitHub ↗
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="social-link" href="https://www.linkedin.com/in/muhammad-irfan-746625306" target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label="Muhammad Irfan di LinkedIn (buka di tab baru)">
+                                        LinkedIn ↗
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="social-link" href="mailto:redmiredmi600@gmail.com"
+                                        aria-label="Kirim email ke Muhammad Irfan (redmiredmi600@gmail.com)">
+                                        Email ↗
                                     </a>
                                 </li>
                             </ul>

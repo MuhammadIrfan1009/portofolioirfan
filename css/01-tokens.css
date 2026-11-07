@@ -17,8 +17,8 @@
   --text-secondary: #383c40;
   --text-meta: #55595e;
 
-  --accent: var(--palette-burnished-copper);
-  --accent-surface: rgba(193, 139, 97, 0.12);
+  --accent: #8B5E32;
+  --accent-surface: rgba(139, 94, 50, 0.12);
 
   --decorative-muted: var(--palette-muted-gray);
 
