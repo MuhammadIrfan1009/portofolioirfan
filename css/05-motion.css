@@ -1,0 +1,379 @@
+/* 05-motion.css — Cinematic Motion & Architectural Choreography */
+
+/* ---------- A. CINEMATIC SHUTTER OVERLAY ---------- */
+.atelier-shutter {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  flex-direction: column;
+}
+
+body.motion-ready:not(.reduced-motion) .atelier-shutter {
+  display: flex;
+}
+
+.shutter-panel {
+  flex: 1;
+  width: 100%;
+  background-color: var(--palette-deep-ground);
+  will-change: transform;
+}
+
+.shutter-calibration {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  z-index: 10000;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  color: var(--accent);
+  text-align: center;
+}
+
+.shutter-mono-code {
+  font-size: 0.8125rem;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.shutter-mono-status {
+  font-size: 0.75rem;
+  color: var(--palette-muted-gray);
+  letter-spacing: var(--tracking-wide);
+}
+
+/* ---------- B. BLUEPRINT CANVAS & COPPER LINE ---------- */
+.blueprint-grid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0.1;
+  color: var(--surface-rule);
+  transition: opacity var(--transition-theme);
+}
+
+.blueprint-grid line,
+.blueprint-grid path {
+  stroke: currentColor;
+  stroke-width: 0.5;
+}
+
+.copper-accent-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+.copper-accent-line .copper-track {
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 0;
+}
+
+.copper-accent-line .copper-flare {
+  fill: var(--accent);
+  filter: drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 12px var(--accent));
+  opacity: 0;
+}
+
+.section--entrance {
+  position: relative;
+  overflow: hidden;
+}
+
+.section--entrance .section-inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* ---------- C. HERO INITIAL STATES ---------- */
+body.motion-ready .hero-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+body.motion-ready .hero-reveal--eyebrow {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+body.motion-ready .hero-reveal--name {
+  opacity: 0;
+  transform: translateY(24px);
+  clip-path: inset(0 100% 0 0);
+}
+
+body.motion-ready .hero-reveal--avatar {
+  opacity: 0;
+  transform: scale(0.85);
+}
+
+body.motion-ready .hero-reveal--cta {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+body.motion-ready .blueprint-grid {
+  opacity: 0;
+}
+
+body.motion-ready .copper-accent-line .copper-track {
+  stroke-dashoffset: 1200;
+}
+
+/* ---------- D. SECTION RULER LINES ---------- */
+.section-title-ruler {
+  height: 2px;
+  width: 100%;
+  max-width: 240px;
+  background: var(--surface-rule);
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-6);
+  transform-origin: left center;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-title-ruler::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 48px;
+  height: 100%;
+  background: var(--accent);
+}
+
+body.motion-ready .section-title-ruler {
+  transform: scaleX(0);
+}
+
+/* ---------- E. MIND (02) — 3D DRAFTING TABLE ---------- */
+.mind-cards {
+  perspective: 1000px;
+}
+
+body.motion-ready .mind-card {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.mind-bio {
+  position: relative;
+  border-left: 2px solid transparent;
+  transition: border-color var(--transition-base);
+}
+
+.mind-bio.revealed {
+  border-left-color: var(--accent);
+}
+
+/* ---------- F. TOOLKIT (03) — MECHANICAL MATRIX ---------- */
+body.motion-ready .toolkit-domain {
+  will-change: transform, opacity;
+}
+
+body.motion-ready .toolkit-tag {
+  opacity: 0;
+  transform: scale(0.4);
+  will-change: transform, opacity;
+}
+
+/* ---------- G. WORKS (04) — BLUEPRINT DRAWINGS ---------- */
+.project-card {
+  overflow: hidden;
+}
+
+.project-image-wrapper {
+  overflow: hidden;
+}
+
+.project-image {
+  will-change: transform;
+}
+
+body.motion-ready .project-card {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+body.motion-ready .project-card--featured {
+  opacity: 0;
+  transform: scale(0.92) translateY(50px);
+}
+
+/* ---------- H. PEOPLE (05) — SCROLL TIMELINE ---------- */
+.timeline {
+  position: relative;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 7px;
+  width: 2px;
+  background: var(--surface-border);
+  z-index: 0;
+}
+
+.timeline-progress-gauge {
+  position: absolute;
+  top: 0;
+  left: 7px;
+  width: 2px;
+  height: 0%;
+  background: var(--accent);
+  z-index: 1;
+  box-shadow: 0 0 6px var(--accent);
+}
+
+body.motion-ready .timeline-entry {
+  opacity: 0;
+  transform: translateX(-30px);
+  will-change: transform, opacity;
+}
+
+body.motion-ready .timeline-node {
+  transform: scale(0);
+  opacity: 0;
+  will-change: transform, opacity, box-shadow;
+}
+
+/* ---------- I. MICRO-INTERACTIONS & HOVER ---------- */
+.btn--primary {
+  transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base), color var(--transition-base);
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(193, 139, 97, 0.28);
+}
+
+.btn--primary:active {
+  transform: translateY(0);
+}
+
+.project-card {
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  border-color: var(--accent);
+}
+
+.project-card:hover .project-image {
+  transform: scale(1.04);
+}
+
+[data-theme="dark"] .project-card:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.mind-card {
+  transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.mind-card:hover {
+  transform: translateY(-4px) scale(1.015);
+  border-color: var(--accent);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07);
+}
+
+[data-theme="dark"] .mind-card:hover {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32);
+}
+
+.social-link {
+  transition: color var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
+}
+
+.social-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: translateX(5px);
+}
+
+.toolkit-tag {
+  transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-fast);
+}
+
+.toolkit-tag:hover {
+  background-color: var(--accent-surface);
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-2px) scale(1.05);
+}
+
+.timeline-node {
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.timeline-entry:hover .timeline-node {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 5px var(--accent-surface);
+  transform: scale(1.25);
+}
+
+/* ---------- J. REDUCED MOTION OVERRIDES ---------- */
+@media (prefers-reduced-motion: reduce) {
+  body.motion-ready .hero-reveal,
+  body.motion-ready .hero-reveal--eyebrow,
+  body.motion-ready .hero-reveal--name,
+  body.motion-ready .hero-reveal--avatar,
+  body.motion-ready .hero-reveal--cta,
+  body.motion-ready .blueprint-grid,
+  body.motion-ready .mind-card,
+  body.motion-ready .toolkit-domain,
+  body.motion-ready .toolkit-tag,
+  body.motion-ready .project-card,
+  body.motion-ready .timeline-entry,
+  body.motion-ready .timeline-node,
+  body.motion-ready .section-title-ruler {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+
+  body.motion-ready .copper-accent-line .copper-track {
+    stroke-dashoffset: 0 !important;
+  }
+
+  body.motion-ready .copper-accent-line .copper-flare,
+  .atelier-shutter {
+    display: none !important;
+  }
+
+  .timeline-progress-gauge {
+    height: 100% !important;
+  }
+
+  .btn--primary:hover,
+  .project-card:hover,
+  .mind-card:hover,
+  .social-link:hover,
+  .toolkit-tag:hover,
+  .timeline-entry:hover .timeline-node {
+    transform: none !important;
+  }
+}

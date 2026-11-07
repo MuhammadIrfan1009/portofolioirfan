@@ -1,0 +1,19 @@
+{
+  "name": "portofolioirfan",
+  "private": true,
+  "version": "2.6.0",
+  "type": "module",
+  "scripts": {
+    "bundle": "esbuild js/main.js --bundle --outfile=js/bundle.js --format=iife",
+    "dev": "vite",
+    "build": "npm run bundle && vite build && node -e \"require('fs').mkdirSync('dist/js', {recursive: true}); require('fs').copyFileSync('js/bundle.js', 'dist/js/bundle.js')\"",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "gsap": "3.12.5"
+  },
+  "devDependencies": {
+    "vite": "6.4.5"
+  }
+}
+

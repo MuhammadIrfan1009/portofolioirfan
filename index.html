@@ -1,197 +1,559 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id" data-theme="light">
+
 <head>
-    <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
-    <!-- CSS -->
-    <link rel="stylesheet" href="main.css">
-    <title>Muhammad Irfan</title>
+    <meta name="description"
+        content="Muhammad Irfan — S1 Sistem Informasi, Universitas Sriwijaya. The Systems Atelier.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
+
+
+    <link rel="stylesheet" href="css/01-tokens.css">
+    <link rel="stylesheet" href="css/02-base.css">
+    <link rel="stylesheet" href="css/03-layout.css">
+    <link rel="stylesheet" href="css/04-nav.css">
+    <link rel="stylesheet" href="css/05-motion.css">
+    <link rel="stylesheet" href="css/06-dialog.css">
+
+    <script defer src="js/bundle.js"></script>
+
+
+    <title>Muhammad Irfan — The Systems Atelier</title>
 </head>
+
 <body>
-    <nav id="navbar" class="navbar"><a href="#"></a></nav>
-<div class="container">
-        <!--Navigation Menu  -->
-    <div class="menu">
-        <a href="#welcome-section" class="menu-icon fas fa-home"></a>
-        <a href="#about" class="menu-icon fas fa-user"></a>
-        <a href="#project" class="menu-icon fas fa-newspaper"></a>
-        <a href="#experience" class="menu-icon fas fa-school"></a>
-        <a href="#contact" class="menu-icon fas fa-envelope"></a>
-    </div>
-    <!-- Main "Window" -->
-    <div class="portofolio">
-    <!-- Header Section -->
-        <section class="header">
-            <img class="header-img" 
-            src="img/irfann.jpg" 
-            alt="">
-            <h1 class="header-title">Muhammad Irfan</h1>
-            <h2>Mahasiswa S1 Sistem Informasi UNSRI</h2>
-            <div class="socials">
-                <a href="https://www.linkedin.com/in/muhammad-irfan-746625306?" target="_blank"  class="fab fa-linkedin"  id="profile-link"></a>
-                <a href="https://github.com/MuhammadIrfan1009" target="_blank"  class="fab fa-github"  id="profile-link"></a>
-                <a href="https://www.instagram.com/mhmd_irfan_10/" target="_blank" class="fab fa-instagram"></a>
-            </div>
-            <a href="cv.pdf" class="cta" download>Download CV</a>
-        </section>
-        <!-- Conten Section -->
-        <div class="content">
-            <!-- Home -->
-            <section class="content-card home" id="welcome-section">
-                <h1>Hello, My Name is Muhammad Irfan</h1>
-            </section>
-            <!-- About Me -->
-            <section class="content-card about" id="about">
-                <h1>About me</h1>
-                <div class="about-item about-me">
-                    <p>Mahasiswa Sistem Informasi Universitas Sriwijaya yang berfokus pada pengembangan web menggunakan framework Laravel. Saya memiliki pengalaman praktis dalam membangun aplikasi manajemen internal di Dinas Komunikasi dan Informatika (Kominfo) untuk digitalisasi arsip dan sistem absensi. Selain aspek teknis, saya juga aktif berkontribusi dalam organisasi mahasiswa dan kepanitiaan IT untuk mendukung kebutuhan operasional serta infrastruktur kegiatan. Saya berorientasi pada penerapan teknologi untuk efisiensi sistem dan penyelesaian masalah nyata di lingkungan profesional.
 
-                    </p>
-                </div>
-                <div class="col-2">
-                    <div class="about-item skills">
-                    <h1>Tools</h1>
-                    <span class="skill">VSC</span>
-                    <span class="skill">Github</span>
-                    <span class="skill">Canva</span>
-
-
-
-
-                </div>
-                <div class="about-item languages">
-                    <h1>Language</h1>
-                    <div class="language">
-                        <p>PHP</p>
-                        <span class="bar"><span class="php"></span></span>
-                    </div>
-                    <div class="language">
-                        <p>Java</p>
-                        <span class="bar"><span class="java"></span></span>
-                    </div>
-                    <div class="language">
-                        <p>Python</p>
-                        <span class="bar"><span class="py"></span></span> 
-                    </div>                    
-                    </div>
-                </div>
-            </section>
-        <!--Projects  -->
-        <section class="content-card project" id="project">
-            <h1>Portofolio</h1>
-            <div class="col-2 project-list">
-                <div class="project-tile">
-                    <img src="img/img1.png"
-                    alt=""/>
-                    <div class="overlay">
-                        <div class="project-description">
-                            <h3>Goryuk</h3>
-                            <p>Website pemesanan online gor olahraga.
-
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-tile">
-                    <img src="img/img2.png"
-                    alt=""/>
-                    <div class="overlay">
-                        <div class="project-description">
-                            <h3>Linktree Himsi</h3>
-                            <p>
-                                Landing page kurasi tautan resmi organisasi
-
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-tile">
-                    <img src="img/img3.png"
-                    alt=""/>
-                    <div class="overlay">
-                        <div class="project-description">
-                            <h3>Menu E-Komdigi</h3>
-                            <p>Website sederhana untuk pengelolaanarsip surat kantor
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-tile">
-                    <img src="img/img4.png"
-                    alt=""/>
-                    <div class="overlay">
-                        <div class="project-description">
-                            <h3>AbsenGo</h3>
-                            <p>
-                                Website absensi untuk pekerja magang
-kantor pemerintah.
-
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Experience -->
-        <section class="content-card experience" id="experience">
-            <h1>Pendidikan</h1>
-            <div class="timeline">
-                <div class="timeline-items">
-                    <div class="timeline-item">
-                        <div class="timeline-date">2025 - present</div>
-                        <div class="timeline-content">
-                            <h3>Universitas Sriwijaya</h3>
-                            <p>Mahasiswa SI</p>
-
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">2022 - 2025</div>
-                        <div class="timeline-content">
-                            <h3>SMKN 4 Tanjungpinang</h3>
-                            <p>Siswa Jurusan RPL</p>
-
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">2019 - 2022</div>
-                        <div class="timeline-content">
-                            <h3>SMPN 6 Tanjungpinang </h3>
-                            <p>Siswa</p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- contact -->
-        <section class="content-card contact" id="contact">
-            <h1>Contact</h1>
-            <form class="form" id="form">
-                <div class="input-box">
-                    <input type="text" class="text-input" id="name" name="name" placeholder="Name">
-                </div>
-                <div class="input-box">
-                    <input type="email" class="text-input" id="email" name="email" placeholder="Email">
-                </div>
-                <div class="input-box"> 
-                    <input type="text" class="text-input" id="subject" name="subject" placeholder="Subject">
-                </div>
-                <div class="input-box">
-                    <textarea class="message" id="message" name="message" placeholder="Message..."></textarea>
-                </div>
-                <div class="input-box">
-                    <button type="button" class="submit-btn" id="submit">submit</button>
-                </div>
-            </form>
-        </section>
+    <div class="atelier-shutter" id="atelier-shutter" aria-hidden="true">
+        <div class="shutter-panel shutter-panel--top"></div>
+        <div class="shutter-panel shutter-panel--bottom"></div>
+        <div class="shutter-calibration">
+            <span class="shutter-mono-code">SYS://ATELIER.INIT</span>
+            <span class="shutter-mono-status">00 &rarr; 01 // CALIBRATING SYSTEM</span>
         </div>
     </div>
-</div>
-</div>
-<script src="main.js"></script>
+
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="site-header">
+        <nav class="nav-desktop" aria-label="Primary navigation">
+            <a class="nav-brand" href="#entrance" aria-label="THE SYSTEMS ATELIER — return to top">
+                <span class="nav-monogram" aria-hidden="true">SA</span>
+                <span class="nav-wordmark">THE SYSTEMS ATELIER</span>
+            </a>
+
+            <ul class="nav-links" role="list">
+                <li><a class="nav-link" href="#mind">02 Mind</a></li>
+                <li><a class="nav-link" href="#toolkit">03 Toolkit</a></li>
+                <li><a class="nav-link" href="#works">04 Works</a></li>
+                <li><a class="nav-link" href="#people">05 People</a></li>
+                <li><a class="nav-link" href="#connection">06 Contact</a></li>
+            </ul>
+
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme">
+                <span aria-hidden="true">◐</span>
+            </button>
+        </nav>
+
+        <div class="nav-mobile-bar">
+            <span class="nav-mobile-wordmark">THE SYSTEMS ATELIER</span>
+            <button class="nav-menu-btn" id="nav-menu-btn" type="button" aria-label="Buka menu navigasi"
+                aria-expanded="false" aria-controls="nav-drawer" aria-haspopup="dialog">
+                <span aria-hidden="true">MENU ☰</span>
+            </button>
+        </div>
+
+        <div class="scroll-progress-bar" id="scroll-progress" aria-hidden="true"></div>
+    </header>
+
+    <dialog class="nav-drawer" id="nav-drawer" aria-labelledby="nav-drawer-title">
+        <div class="nav-drawer-header">
+            <h2 class="nav-drawer-wordmark" id="nav-drawer-title">THE SYSTEMS ATELIER</h2>
+            <button class="nav-drawer-close" id="nav-drawer-close" type="button" aria-label="Tutup menu navigasi">
+                <span aria-hidden="true">CLOSE ✕</span>
+            </button>
+        </div>
+
+        <nav class="nav-drawer-nav" aria-label="Navigasi menu">
+            <ul class="nav-drawer-links" role="list">
+                <li>
+                    <a class="nav-drawer-link" href="#entrance">01 · THE ENTRANCE</a>
+                </li>
+                <li>
+                    <a class="nav-drawer-link" href="#mind">02 · THE MIND</a>
+                </li>
+                <li>
+                    <a class="nav-drawer-link" href="#toolkit">03 · THE TOOLKIT</a>
+                </li>
+                <li>
+                    <a class="nav-drawer-link" href="#works">04 · THE WORKS</a>
+                </li>
+                <li>
+                    <a class="nav-drawer-link" href="#people">05 · THE PEOPLE</a>
+                </li>
+                <li>
+                    <a class="nav-drawer-link" href="#connection">06 · THE CONNECTION</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="nav-drawer-footer">
+            <button class="theme-toggle theme-toggle--drawer" id="theme-toggle-drawer" type="button"
+                aria-label="Switch to dark theme">
+                <span aria-hidden="true">◐</span>
+                <span class="theme-toggle-label">Ganti tema</span>
+            </button>
+        </div>
+    </dialog>
+
+    <main id="main-content" tabindex="-1">
+
+        <section class="section section--entrance" id="entrance" aria-labelledby="entrance-heading" tabindex="-1">
+            <svg class="blueprint-grid" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 1200 800">
+                <defs>
+                    <pattern id="grid-pattern" width="100" height="100" patternUnits="userSpaceOnUse">
+                        <line x1="0" y1="0" x2="100" y2="0" stroke="currentColor" stroke-width="0.5" />
+                        <line x1="0" y1="0" x2="0" y2="100" stroke="currentColor" stroke-width="0.5" />
+                        <circle cx="100" cy="100" r="1.5" fill="currentColor" opacity="0.6" />
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid-pattern)" />
+            </svg>
+            <svg class="copper-accent-line" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 1200 4">
+                <line class="copper-track" x1="0" y1="2" x2="1200" y2="2" />
+                <circle class="copper-flare" cx="0" cy="2" r="3" />
+            </svg>
+            <div class="section-inner">
+                <div class="entrance-profile">
+                    <img src="img/irfann.jpg" alt="Muhammad Irfan" class="entrance-avatar" width="150" height="150">
+                </div>
+
+                <p class="section-index-label" aria-hidden="true">
+                    01 · S1 SISTEM INFORMASI · UNIVERSITAS SRIWIJAYA
+                </p>
+
+                <h1 class="entrance-name" id="entrance-heading">MUHAMMAD IRFAN</h1>
+
+                <p class="entrance-gpa">IPK 3,93 / 4,00</p>
+
+                <p class="entrance-tagline">Where logic meets imagination.</p>
+
+                <a class="btn btn--primary" href="#works">
+                    Explore Selected Works ↓
+                </a>
+            </div>
+        </section>
+
+        <section class="section section--mind" id="mind" aria-labelledby="mind-heading" tabindex="-1">
+            <div class="section-inner">
+                <p class="section-index-label" aria-hidden="true">02</p>
+                <h2 class="section-title" id="mind-heading">THE MIND</h2>
+
+                <div class="mind-cards">
+                    <article class="mind-card">
+                        <h3 class="mind-card-title">THE BUILDER</h3>
+                        <p class="mind-card-body">
+                            Frontend developer focused on building functional web
+                            applications with clean architecture and practical outcomes.
+                        </p>
+                    </article>
+
+                    <article class="mind-card">
+                        <h3 class="mind-card-title">THE THINKER</h3>
+                        <p class="mind-card-body">
+                            Information Systems student who approaches problems
+                            systematically — from requirements to deployed solution.
+                        </p>
+                    </article>
+
+                    <article class="mind-card">
+                        <h3 class="mind-card-title">THE COLLABORATOR</h3>
+                        <p class="mind-card-body">
+                            Aktif berkontribusi dalam organisasi mahasiswa dan kepanitiaan
+                            IT untuk mendukung kebutuhan operasional serta infrastruktur kegiatan.
+                        </p>
+                    </article>
+                </div>
+
+                <div class="mind-bio">
+                    <p>
+                        Mahasiswa Sistem Informasi Universitas Sriwijaya yang berfokus
+                        pada pengembangan web menggunakan framework Laravel. Aktif berkontribusi
+                        dalam organisasi mahasiswa dan kepanitiaan IT untuk mendukung
+                        kebutuhan operasional serta infrastruktur kegiatan. Berorientasi
+                        pada penerapan teknologi untuk efisiensi sistem dan penyelesaian
+                        masalah nyata di lingkungan profesional.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section--toolkit" id="toolkit" aria-labelledby="toolkit-heading" tabindex="-1">
+            <div class="section-inner">
+                <p class="section-index-label" aria-hidden="true">03</p>
+                <h2 class="section-title" id="toolkit-heading">THE TOOLKIT</h2>
+                <p class="section-subtitle">Technical Capability Matrix.</p>
+
+                <div class="toolkit-domains">
+
+                    <div class="toolkit-domain">
+                        <h3 class="toolkit-domain-title">1. FRONTEND ARCHITECTURE</h3>
+                        <ul class="toolkit-tags" role="list">
+                            <li class="toolkit-tag">HTML5</li>
+                            <li class="toolkit-tag">CSS3</li>
+                            <li class="toolkit-tag">JavaScript (ES6+)</li>
+                            <li class="toolkit-tag">React.js</li>
+                            <li class="toolkit-tag">TypeScript</li>
+                        </ul>
+                    </div>
+
+                    <div class="toolkit-domain">
+                        <h3 class="toolkit-domain-title">2. STYLING &amp; USER INTERFACE</h3>
+                        <ul class="toolkit-tags" role="list">
+                            <li class="toolkit-tag">Tailwind CSS</li>
+                            <li class="toolkit-tag">Bootstrap</li>
+                            <li class="toolkit-tag">Figma</li>
+                        </ul>
+                    </div>
+
+                    <div class="toolkit-domain">
+                        <h3 class="toolkit-domain-title">3. BACKEND &amp; APPLICATION CORE</h3>
+                        <ul class="toolkit-tags" role="list">
+                            <li class="toolkit-tag">PHP</li>
+                            <li class="toolkit-tag">Laravel</li>
+                        </ul>
+                    </div>
+
+                    <div class="toolkit-domain">
+                        <h3 class="toolkit-domain-title">4. DATABASE &amp; DATA PERSISTENCE</h3>
+                        <ul class="toolkit-tags" role="list">
+                            <li class="toolkit-tag">MySQL</li>
+                        </ul>
+                    </div>
+
+                    <div class="toolkit-domain">
+                        <h3 class="toolkit-domain-title">5. INTEGRATION, RUNTIME &amp; TOOLING</h3>
+                        <ul class="toolkit-tags" role="list">
+                            <li class="toolkit-tag">Inertia.js</li>
+                            <li class="toolkit-tag">Git</li>
+                            <li class="toolkit-tag">GitHub</li>
+                            <li class="toolkit-tag">VS Code</li>
+                            <li class="toolkit-tag">Vercel</li>
+                            <li class="toolkit-tag">WordPress</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="section section--works" id="works" aria-labelledby="works-heading" tabindex="-1">
+            <div class="section-inner">
+                <p class="section-index-label" aria-hidden="true">04</p>
+                <h2 class="section-title" id="works-heading">THE WORKS</h2>
+                <p class="section-subtitle">Selected Engineering Blueprints.</p>
+
+                <div class="works-grid">
+
+                    <article class="project-card project-card--featured" aria-labelledby="sys-001-title">
+                        <header class="project-card-header">
+                            <span class="project-id">SYS-001 / FEATURED</span>
+                            <h3 class="project-title" id="sys-001-title">SI FEST 2026</h3>
+                            <p class="project-subtitle">
+                                Sistem Informasi Festival 2026
+                            </p>
+                        </header>
+
+                        <div class="project-image-placeholder" aria-label="Tangkapan layar proyek SI FEST 2026">
+                            <img src="img/img6.png" alt="Tangkapan layar proyek SI FEST 2026" class="project-image"
+                                width="798" height="375" loading="lazy">
+                        </div>
+
+                        <div class="project-body">
+                            <ul class="project-roles" role="list">
+                                <li>PIC Frontend Website</li>
+                                <li>PIC Backend Chatbot Oscar</li>
+                            </ul>
+                            <p class="project-note">
+                                Chatbot Oscar sudah terintegrasi pada website SI FEST.
+                            </p>
+                            <a class="project-link" href="https://sifestunsri.com" target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Kunjungi website SI FEST 2026 di sifestunsri.com (buka di tab baru)">
+                                sifestunsri.com ↗
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="project-card" aria-labelledby="sys-002-title">
+                        <header class="project-card-header">
+                            <span class="project-id">SYS-002</span>
+                            <h3 class="project-title" id="sys-002-title">LOKA NIKAH</h3>
+                        </header>
+
+                        <div class="project-image-placeholder" aria-label="Tangkapan layar proyek LOKA NIKAH">
+                            <img src="img/img5.png" alt="Tangkapan layar proyek LOKA NIKAH" class="project-image"
+                                width="798" height="375" loading="lazy">
+                        </div>
+
+                        <div class="project-body">
+                            <p class="project-note">
+                                Tugas kelompok mata kuliah. Kontribusi frontend dan backend.
+                            </p>
+                            <a class="project-link" href="https://loka-nikah.vercel.app" target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Kunjungi website LOKA NIKAH di loka-nikah.vercel.app (buka di tab baru)">
+                                loka-nikah.vercel.app ↗
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="project-card" aria-labelledby="sys-003-title">
+                        <header class="project-card-header">
+                            <span class="project-id">SYS-003</span>
+                            <h3 class="project-title" id="sys-003-title">E-KOMDIGI</h3>
+                        </header>
+
+                        <div class="project-image-wrapper">
+                            <img src="img/img3.png" alt="Tangkapan layar proyek E-Komdigi" class="project-image"
+                                width="798" height="375" loading="lazy">
+                        </div>
+
+                        <div class="project-body">
+                            <p class="project-note">
+                                Website sederhana untuk pengelolaan arsip surat kantor.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="project-card" aria-labelledby="sys-004-title">
+                        <header class="project-card-header">
+                            <span class="project-id">SYS-004</span>
+                            <h3 class="project-title" id="sys-004-title">ABSENGO</h3>
+                        </header>
+
+                        <div class="project-image-wrapper">
+                            <img src="img/img4.png" alt="Tangkapan layar proyek AbsenGo" class="project-image"
+                                width="1908" height="926" loading="lazy">
+                        </div>
+
+                        <div class="project-body">
+                            <p class="project-note">
+                                Website absensi untuk pekerja magang kantor pemerintah.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="project-card" aria-labelledby="sys-005-title">
+                        <header class="project-card-header">
+                            <span class="project-id">SYS-005</span>
+                            <h3 class="project-title" id="sys-005-title">LINKTREE HIMSI</h3>
+                        </header>
+
+                        <div class="project-image-wrapper">
+                            <img src="img/img2.png" alt="Tangkapan layar proyek Linktree HIMSI" class="project-image"
+                                width="1903" height="908" loading="lazy">
+                        </div>
+
+                        <div class="project-body">
+                            <p class="project-note">
+                                Landing page kurasi tautan resmi organisasi.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="project-card" aria-labelledby="sys-006-title">
+                        <header class="project-card-header">
+                            <span class="project-id">SYS-006</span>
+                            <h3 class="project-title" id="sys-006-title">GORYUK</h3>
+                        </header>
+
+                        <div class="project-image-wrapper">
+                            <img src="img/img1.png" alt="Tangkapan layar proyek GorYuk" class="project-image"
+                                width="692" height="321" loading="lazy">
+                        </div>
+
+                        <div class="project-body">
+                            <p class="project-note">
+                                Website pemesanan online gor olahraga.
+                            </p>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="section section--people" id="people" aria-labelledby="people-heading" tabindex="-1">
+            <div class="section-inner">
+                <p class="section-index-label" aria-hidden="true">05</p>
+                <h2 class="section-title" id="people-heading">THE PEOPLE</h2>
+                <p class="section-subtitle">Operational Log.</p>
+
+                <div class="timeline">
+
+                    <article class="timeline-entry" aria-labelledby="exp-sifest-tid-title">
+                        <div class="timeline-node" aria-hidden="true"></div>
+                        <div class="timeline-content">
+                            <p class="timeline-org">SI FEST 2026</p>
+                            <h3 class="timeline-role" id="exp-sifest-tid-title">
+                                Staff Technology Information Development
+                            </h3>
+                            <ul class="timeline-responsibilities" role="list">
+                                <li>PIC Frontend Website.</li>
+                                <li>PIC Backend Chatbot Oscar.</li>
+                                <li>Chatbot Oscar sudah terintegrasi pada website SI FEST.</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="timeline-entry" aria-labelledby="exp-sifest-seminar-title">
+                        <div class="timeline-node" aria-hidden="true"></div>
+                        <div class="timeline-content">
+                            <p class="timeline-org">SI FEST 2026</p>
+                            <h3 class="timeline-role" id="exp-sifest-seminar-title">
+                                Staff Divisi Seminar
+                            </h3>
+                            <ul class="timeline-responsibilities" role="list">
+                                <li>Menjadi LO operator.</li>
+                                <li>Membantu penyusunan konsep acara.</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="timeline-entry" aria-labelledby="exp-uxexpo-title">
+                        <div class="timeline-node" aria-hidden="true"></div>
+                        <div class="timeline-content">
+                            <p class="timeline-org">UX Exhibition 2026</p>
+                            <h3 class="timeline-role" id="exp-uxexpo-title">Staff Acara</h3>
+                            <ul class="timeline-responsibilities" role="list">
+                                <li>Menyusun rundown acara.</li>
+                                <li>Menjadi LO operator.</li>
+                                <li>Membantu penyusunan konsep acara.</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="timeline-entry" aria-labelledby="exp-pkkmb-title">
+                        <div class="timeline-node" aria-hidden="true"></div>
+                        <div class="timeline-content">
+                            <p class="timeline-org">PKKMB Departemen Sistem Informasi</p>
+                            <h3 class="timeline-role" id="exp-pkkmb-title">Staff Perlengkapan</h3>
+                        </div>
+                    </article>
+
+                    <article class="timeline-entry" aria-labelledby="exp-inagurasi-title">
+                        <div class="timeline-node" aria-hidden="true"></div>
+                        <div class="timeline-content">
+                            <p class="timeline-org">Inagurasi SI 2026</p>
+                            <h3 class="timeline-role" id="exp-inagurasi-title">Staff Pubdok</h3>
+                        </div>
+                    </article>
+
+                </div>
+
+                <div class="education-block">
+                    <h3 class="education-block-title">Education</h3>
+                    <div class="timeline">
+
+                        <article class="timeline-entry" aria-labelledby="edu-unsri-title">
+                            <div class="timeline-node" aria-hidden="true"></div>
+                            <div class="timeline-content">
+                                <p class="timeline-date">2025 – present</p>
+                                <p class="timeline-org">Universitas Sriwijaya</p>
+                                <h4 class="timeline-role" id="edu-unsri-title">
+                                    S1 Sistem Informasi
+                                </h4>
+                                <p class="timeline-meta">IPK 3,93 / 4,00</p>
+                            </div>
+                        </article>
+
+                        <article class="timeline-entry" aria-labelledby="edu-smkn4-title">
+                            <div class="timeline-node" aria-hidden="true"></div>
+                            <div class="timeline-content">
+                                <p class="timeline-date">2022 – 2025</p>
+                                <p class="timeline-org">SMKN 4 Tanjungpinang</p>
+                                <h4 class="timeline-role" id="edu-smkn4-title">
+                                    Siswa — Jurusan Rekayasa Perangkat Lunak (RPL)
+                                </h4>
+                            </div>
+                        </article>
+
+                        <article class="timeline-entry" aria-labelledby="edu-smpn6-title">
+                            <div class="timeline-node" aria-hidden="true"></div>
+                            <div class="timeline-content">
+                                <p class="timeline-date">2019 – 2022</p>
+                                <p class="timeline-org">SMPN 6 Tanjungpinang</p>
+                                <h4 class="timeline-role" id="edu-smpn6-title">Siswa</h4>
+                            </div>
+                        </article>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section section--connection" id="connection" aria-labelledby="connection-heading" tabindex="-1">
+            <div class="section-inner">
+                <p class="section-index-label" aria-hidden="true">06</p>
+                <h2 class="section-title" id="connection-heading">THE CONNECTION</h2>
+
+                <div class="connection-layout">
+                    <div class="connection-channels">
+                        <nav class="social-links" aria-label="Profil sosial">
+                            <ul role="list">
+                                <li>
+                                    <a class="social-link" href="https://github.com/MuhammadIrfan1009" target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label="Muhammad Irfan di GitHub (buka di tab baru)">
+                                        GitHub ↗
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <p class="footer-line">
+                THE SYSTEMS ATELIER · MUHAMMAD IRFAN · UNSRI · 2026
+            </p>
+            <p class="footer-tagline">Where logic meets imagination.</p>
+        </div>
+    </footer>
+
+    <dialog class="project-dialog" id="project-dialog" aria-labelledby="project-dialog-title" aria-modal="true">
+        <div class="project-dialog-container">
+            <header class="project-dialog-header">
+                <div class="project-dialog-meta">
+                    <span class="project-dialog-id" id="project-dialog-id"></span>
+                    <span class="project-dialog-classification">ARCHITECTURAL DOSSIER</span>
+                </div>
+                <button class="project-dialog-close" id="project-dialog-close" type="button"
+                    aria-label="Tutup detail proyek">
+                    <span aria-hidden="true">CLOSE &times;</span>
+                </button>
+            </header>
+            <div class="project-dialog-body">
+                <h2 class="project-dialog-title" id="project-dialog-title"></h2>
+                <p class="project-dialog-subtitle" id="project-dialog-subtitle"></p>
+                <div class="project-dialog-media" id="project-dialog-media"></div>
+                <div class="project-dialog-details" id="project-dialog-details"></div>
+            </div>
+            <div class="project-dialog-footer" id="project-dialog-footer"></div>
+        </div>
+    </dialog>
+
 </body>
+
 </html>
