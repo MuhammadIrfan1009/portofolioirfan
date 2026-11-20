@@ -19,8 +19,13 @@ export function initSmoothScroll() {
     return Math.max(min, Math.min(val, max));
   }
 
+  // V3: Guard against dialogs intercepting scroll
+  function isDialogOpen() {
+    return !!document.querySelector('dialog[open]');
+  }
+
   function onWheel(e) {
-    if (document.querySelector('dialog[open]')) return;
+    if (isDialogOpen()) return;
 
     e.preventDefault();
     const delta = e.deltaY;
@@ -40,19 +45,20 @@ export function initSmoothScroll() {
     if (Math.abs(diff) > 0.4) {
       currentY += diff * ease;
       window.scrollTo(0, currentY);
-      ScrollTrigger.update();
+      try { ScrollTrigger.update(); } catch (e) {}
       requestAnimationFrame(update);
     } else {
       currentY = targetY;
       window.scrollTo(0, currentY);
-      ScrollTrigger.update();
+      try { ScrollTrigger.update(); } catch (e) {}
       isTicking = false;
     }
   }
 
   function onKey(e) {
-    if (document.querySelector('dialog[open]')) return;
-    if (['input', 'textarea'].includes(document.activeElement.tagName.toLowerCase())) return;
+    if (isDialogOpen()) return;
+    const tag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+    if (['input', 'textarea'].includes(tag)) return;
 
     let delta = 0;
     if (e.key === 'ArrowDown') delta = 80;
@@ -107,7 +113,7 @@ export function initSmoothScroll() {
           const nextY = startY + dist * animObj.progress;
           window.scrollTo(0, nextY);
           currentY = nextY;
-          ScrollTrigger.update();
+          try { ScrollTrigger.update(); } catch (e) {}
         },
         onComplete: () => {
           isAnimating = false;

@@ -110,7 +110,7 @@ body.motion-ready:not(.reduced-motion) .atelier-shutter {
 .section {
   position: relative;
   overflow: hidden;
-  contain: paint;
+  contain: layout style paint;
   isolation: isolate;
 }
 
@@ -655,6 +655,9 @@ body.dialog-open .atelier-cursor {
 }
 
 body.motion-ready .btn--primary,
+body.motion-ready .btn--secondary,
+body.motion-ready .btn--cv,
+body.motion-ready .nav-cv-btn,
 body.motion-ready .social-link,
 body.motion-ready .footer-back-to-top,
 body.motion-ready .nav-menu-btn,

@@ -167,3 +167,61 @@ ol[role="list"] {
     scroll-behavior: auto !important;
   }
 }
+
+/* V3: Print stylesheet — clean output without 3D/motion/decorative elements */
+@media print {
+  body::before,
+  .atelier-shutter,
+  .atelier-cursor,
+  .cursor-cert-preview,
+  .blueprint-grid,
+  .copper-accent-line,
+  .section-watermark,
+  .site-header,
+  .nav-mobile-bar,
+  dialog.nav-drawer,
+  .entrance-apparatus,
+  .mind-stage-portal,
+  .scroll-progress,
+  .footer-back-to-top,
+  canvas {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: #111 !important;
+    font-size: 11pt;
+  }
+
+  main#main-content {
+    padding-top: 0 !important;
+  }
+
+  .section {
+    padding: 1.5em 0 !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .section--entrance {
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+  }
+
+  .section-inner {
+    max-width: 100% !important;
+    padding: 0 1em !important;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+  }
+
+  a[href^="#"]::after {
+    content: none;
+  }
+}

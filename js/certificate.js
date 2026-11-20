@@ -23,6 +23,7 @@ export function initCertificateInteraction() {
       titleEl.textContent = title || 'Sertifikat';
     }
 
+    // V3: Hide cert preview cursor before opening dialog
     const certPreview = document.querySelector('.cursor-cert-preview');
     if (certPreview) {
       certPreview.classList.remove('is-active');
@@ -30,11 +31,6 @@ export function initCertificateInteraction() {
 
     dialog.showModal();
     document.body.classList.add('dialog-open');
-
-    const cursorEl = document.querySelector('.atelier-cursor');
-    if (cursorEl) {
-      dialog.appendChild(cursorEl);
-    }
 
     if (closeBtn) {
       closeBtn.focus();
@@ -81,14 +77,11 @@ export function initCertificateInteraction() {
 
   dialog.addEventListener('close', () => {
     document.body.classList.remove('dialog-open');
-    const cursorEl = dialog.querySelector('.atelier-cursor');
-    if (cursorEl) {
-      document.body.appendChild(cursorEl);
-    }
+    // V3: Removed cursor reparenting — no longer needed since cursor
+    // visibility is handled via CSS body.dialog-open selector
     if (activeTrigger && typeof activeTrigger.focus === 'function') {
       activeTrigger.focus();
     }
+    activeTrigger = null;
   });
 }
-
-

@@ -9,7 +9,7 @@ export function initTheme() {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
 
-  function applyTheme(theme) {
+  function applyTheme(theme, dispatch = true) {
     docEl.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
 
@@ -29,6 +29,11 @@ export function initTheme() {
       const textSpan = drawerToggle.querySelector('.theme-toggle-label');
       if (textSpan) textSpan.textContent = drawerLabelText;
     }
+
+    // V3: Dispatch custom event so canvas renderers can react immediately
+    if (dispatch) {
+      window.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
+    }
   }
 
   function toggleTheme() {
@@ -37,7 +42,7 @@ export function initTheme() {
     applyTheme(next);
   }
 
-  applyTheme(getPreferredTheme());
+  applyTheme(getPreferredTheme(), false);
 
   const allToggles = [desktopToggle, drawerToggle].filter(Boolean);
   allToggles.forEach(btn => {

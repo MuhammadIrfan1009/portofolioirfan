@@ -52,12 +52,12 @@ function initCinematicOpening() {
     }
   });
 
-  // Failsafe: guarantee shutter never locks screen if page/tab is backgrounded
+  // V3: Faster failsafe — 1.8s instead of 2.2s
   setTimeout(() => {
     if (shutter && shutter.style.display !== 'none') {
       shutter.style.display = 'none';
     }
-  }, 2200);
+  }, 1800);
 
   if (calibration) {
     tl.fromTo(brandMark,
@@ -646,11 +646,11 @@ function initSectionStorytelling() {
     });
   }
 
-  // Universal safety check: guarantee all content is visible if network or layout shifted
+  // V3: Universal safety check — faster timeout, includes connection elements
   setTimeout(() => {
-    ScrollTrigger.refresh();
+    try { ScrollTrigger.refresh(); } catch (e) {}
     const hidden = document.querySelectorAll(
-      '.mind-card, .toolkit-tag, .project-card, .ledger-row, .academic-card, .academic-dossier-header'
+      '.mind-card, .toolkit-domain, .toolkit-tag, .project-card, .ledger-row, .academic-card, .academic-dossier-header, .connection-left, .connection-channels'
     );
     hidden.forEach((el) => {
       const style = window.getComputedStyle(el);
@@ -658,7 +658,7 @@ function initSectionStorytelling() {
         gsap.to(el, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.35, overwrite: 'auto' });
       }
     });
-  }, 1200);
+  }, 1000);
 }
 
 function initInteractiveCardPhysics() {

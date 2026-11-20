@@ -1,7 +1,13 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+let _initialized = false;
+
 export function initScrollInteraction() {
+  // V3: Guard against double initialization
+  if (_initialized) return;
+  _initialized = true;
+
   const header = document.querySelector('.site-header');
   const progressBar = document.getElementById('scroll-progress');
   const desktopLinks = document.querySelectorAll('.nav-link');

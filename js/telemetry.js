@@ -1,5 +1,6 @@
 export function initTelemetry() {
   initLiveClock();
+  initUptimeCounter();
   initClipboardCopy();
   initAmbientSpotlight();
 }
@@ -20,6 +21,27 @@ function initLiveClock() {
 
   update();
   setInterval(update, 1000);
+}
+
+function initUptimeCounter() {
+  const el = document.getElementById('atelier-uptime');
+  if (!el) return;
+
+  // Portfolio launch epoch (V1 estimated launch)
+  const launchDate = new Date('2026-06-01T00:00:00+07:00');
+
+  function update() {
+    const now = new Date();
+    const diff = now - launchDate;
+    if (diff < 0) { el.textContent = 'SYS.BOOT'; return; }
+
+    const days = Math.floor(diff / 86400000);
+    const hrs = Math.floor((diff % 86400000) / 3600000);
+    el.textContent = `${days}D ${hrs}H UPTIME`;
+  }
+
+  update();
+  setInterval(update, 60000);
 }
 
 function initClipboardCopy() {
@@ -89,16 +111,15 @@ function initAmbientSpotlight() {
   }, { passive: true });
 
   function render() {
-    currentX += (mouseX - currentX) * 0.15;
-    currentY += (mouseY - currentY) * 0.15;
-    document.documentElement.style.setProperty('--spotlight-x', `${currentX.toFixed(1)}px`);
-    document.documentElement.style.setProperty('--spotlight-y', `${currentY.toFixed(1)}px`);
+    currentX += (mouseX - currentX) * 0.12;
+    currentY += (mouseY - currentY) * 0.12;
+    document.documentElement.style.setProperty('--spotlight-x', `${currentX.toFixed(0)}px`);
+    document.documentElement.style.setProperty('--spotlight-y', `${currentY.toFixed(0)}px`);
 
-    if (Math.abs(mouseX - currentX) > 0.5 || Math.abs(mouseY - currentY) > 0.5) {
+    if (Math.abs(mouseX - currentX) > 0.8 || Math.abs(mouseY - currentY) > 0.8) {
       requestAnimationFrame(render);
     } else {
       ticking = false;
     }
   }
 }
-

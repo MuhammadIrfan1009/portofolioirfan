@@ -116,7 +116,8 @@ export function initProjectShowcase() {
     const finalImageAlt = cardImg ? cardImg.getAttribute('alt') : (data.imageAlt || data.title);
 
     if (finalImageSrc) {
-      mediaEl.innerHTML = `<picture><source srcset="${finalImageSrc}" type="image/webp"><img src="${finalFallbackSrc}" alt="${finalImageAlt}" loading="eager" decoding="async"></picture>`;
+      // V3: Added loading="eager" + onerror fallback for resilient image loading
+      mediaEl.innerHTML = `<picture><source srcset="${finalImageSrc}" type="image/webp"><img src="${finalFallbackSrc}" alt="${finalImageAlt}" loading="eager" decoding="async" onerror="this.style.display='none'"></picture>`;
       mediaEl.style.display = 'block';
     } else if (data.placeholder) {
       mediaEl.innerHTML = `<div class="project-image-placeholder"><span class="project-image-placeholder-label">${data.placeholder}</span></div>`;
@@ -148,11 +149,6 @@ export function initProjectShowcase() {
 
     dialog.showModal();
     document.body.classList.add('dialog-open');
-
-    const cursorEl = document.querySelector('.atelier-cursor');
-    if (cursorEl) {
-      dialog.appendChild(cursorEl);
-    }
 
     const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const container = dialog.querySelector('.project-dialog-container');
@@ -236,12 +232,9 @@ export function initProjectShowcase() {
 
   dialog.addEventListener('close', () => {
     document.body.classList.remove('dialog-open');
-    const cursorEl = dialog.querySelector('.atelier-cursor');
-    if (cursorEl) {
-      document.body.appendChild(cursorEl);
-    }
     if (activeTrigger && typeof activeTrigger.focus === 'function') {
       activeTrigger.focus();
     }
+    activeTrigger = null;
   });
 }

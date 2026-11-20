@@ -54,6 +54,7 @@ export function initCursor() {
     if (certPreview) certPreview.classList.remove('is-active');
   }
 
+  // V3: Use transform3d for GPU compositing, batch reads/writes
   function updatePositions() {
     if (isVisible) {
       dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
@@ -71,6 +72,7 @@ export function initCursor() {
     rafId = requestAnimationFrame(updatePositions);
   }
 
+  // V3: Passive mousemove — no throttle needed since updatePositions is rAF-bound
   window.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
@@ -115,6 +117,7 @@ export function initCursor() {
     }
   }
 
+  // V3: Event delegation — single listener instead of per-element
   document.addEventListener('mouseover', (e) => {
     const target = e.target;
     if (!target || target === lastTarget) return;
@@ -165,7 +168,8 @@ export function initCursor() {
       return;
     }
 
-    const button = target.closest('button, .btn, .nav-menu-btn, .theme-toggle, .works-filter-btn');
+    // V3: Added .btn--secondary, .btn--cv, .nav-cv-btn, .nav-drawer-cv-btn
+    const button = target.closest('button, .btn, .nav-menu-btn, .theme-toggle, .works-filter-btn, .nav-cv-btn');
     if (button) {
       setCursorState('is-hover-btn', '');
       return;

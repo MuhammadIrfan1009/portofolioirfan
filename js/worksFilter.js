@@ -6,8 +6,12 @@ export function initWorksFilter() {
   const cards = document.querySelectorAll('.section--works .project-card');
   if (filterBtns.length === 0 || cards.length === 0) return;
 
+  let isAnimating = false;
+
   filterBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
+      if (isAnimating) return;
+
       const filter = btn.getAttribute('data-filter') || 'all';
 
       filterBtns.forEach((b) => {
@@ -19,13 +23,15 @@ export function initWorksFilter() {
 
       const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      let animatingCount = 0;
-      const totalCards = cards.length;
+      isAnimating = true;
+      let completed = 0;
+      const total = cards.length;
 
-      const onAnimComplete = () => {
-        animatingCount++;
-        if (animatingCount >= totalCards) {
-          ScrollTrigger.refresh();
+      const onDone = () => {
+        completed++;
+        if (completed >= total) {
+          isAnimating = false;
+          try { ScrollTrigger.refresh(); } catch (e) {}
         }
       };
 
@@ -45,13 +51,13 @@ export function initWorksFilter() {
                 duration: 0.45,
                 ease: 'power3.out',
                 overwrite: 'auto',
-                onComplete: onAnimComplete
+                onComplete: onDone
               }
             );
           } else {
             card.style.opacity = '1';
             card.style.transform = 'none';
-            onAnimComplete();
+            onDone();
           }
         } else {
           if (!isReduced) {
@@ -63,16 +69,15 @@ export function initWorksFilter() {
               overwrite: 'auto',
               onComplete: () => {
                 card.style.display = 'none';
-                onAnimComplete();
+                onDone();
               }
             });
           } else {
             card.style.display = 'none';
-            onAnimComplete();
+            onDone();
           }
         }
       });
     });
   });
 }
-

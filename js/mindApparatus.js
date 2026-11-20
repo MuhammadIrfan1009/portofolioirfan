@@ -12,6 +12,19 @@ export function initMindApparatus() {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
+  // V3: ResizeObserver for accurate canvas sizing
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(() => {
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      if (w > 0 && h > 0) {
+        canvas.width = w;
+        canvas.height = h;
+      }
+    });
+    ro.observe(canvas);
+  }
+
   let animId = null;
   let activeMind = null;
   let activeCard = null;
@@ -26,6 +39,9 @@ export function initMindApparatus() {
   function isLightMode() {
     return document.documentElement.getAttribute('data-theme') === 'light';
   }
+
+  // V3: Cache theme colors, listen for themechange event
+  let _colors = null;
 
   function getThemeColors() {
     if (isLightMode()) {
@@ -47,6 +63,11 @@ export function initMindApparatus() {
       grid: 'rgba(193, 139, 97, 0.12)'
     };
   }
+
+  _colors = getThemeColors();
+  window.addEventListener('themechange', () => {
+    _colors = getThemeColors();
+  });
 
   /* ───────── 3D DRAW FUNCTIONS ───────── */
 
@@ -289,10 +310,16 @@ export function initMindApparatus() {
       return;
     }
 
+    // V3: Guard against 0-dimension canvas
+    if (canvas.width === 0 || canvas.height === 0) {
+      animId = requestAnimationFrame(renderStage);
+      return;
+    }
+
     angle += 0.016;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const colors = getThemeColors();
+    const colors = _colors;
     const cx = canvas.width / 2;
     const cy = canvas.height / 2;
 
@@ -348,12 +375,10 @@ export function initMindApparatus() {
   cards.forEach(card => {
     const mindType = card.getAttribute('data-mind') || 'builder';
 
-    // Desktop hover: instantaneous 3D focal stage activation
     card.addEventListener('mouseenter', () => {
       activate(card, mindType);
     });
 
-    // Touch devices: track gesture coordinates to separate intentional tap from scroll
     let touchStartX = 0;
     let touchStartY = 0;
 
@@ -368,7 +393,6 @@ export function initMindApparatus() {
       if (e.changedTouches && e.changedTouches.length === 1) {
         const dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
         const dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
-        // Only activate if finger moved less than 12px (tap, NOT a scroll!)
         if (dx < 12 && dy < 12) {
           if (activeCard === card) {
             deactivate();
@@ -379,7 +403,6 @@ export function initMindApparatus() {
       }
     });
 
-    // Hybrid pointer click (laptop touchscreens, mouse clicks)
     card.addEventListener('click', (e) => {
       e.stopPropagation();
       if (activeCard === card) {
@@ -389,23 +412,19 @@ export function initMindApparatus() {
       }
     });
 
-    // Keyboard focus accessibility
     card.addEventListener('focusin', () => activate(card, mindType));
   });
 
-  // Leaving the entire cards container smoothly turns off 3D on desktop
   container.addEventListener('mouseleave', () => {
     deactivate();
   });
 
-  // Tapping or clicking outside cards dismisses focal stage
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.mind-card')) {
       deactivate();
     }
   });
 
-  // Auto-deactivate when scrolling away from THE MIND section
   if ('IntersectionObserver' in window) {
     const mindObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {

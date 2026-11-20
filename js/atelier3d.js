@@ -14,14 +14,24 @@ export function initAtelier3D() {
 
   function resize() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
-    width = canvas.clientWidth || 320;
-    height = canvas.clientHeight || 320;
+    const newW = canvas.clientWidth || 320;
+    const newH = canvas.clientHeight || 320;
+    if (newW === width && newH === height) return;
+    width = newW;
+    height = newH;
     canvas.width = Math.round(width * dpr);
     canvas.height = Math.round(height * dpr);
   }
 
   resize();
-  window.addEventListener('resize', resize, { passive: true });
+
+  // V3: ResizeObserver instead of window resize for precise canvas sizing
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(() => resize());
+    ro.observe(canvas);
+  } else {
+    window.addEventListener('resize', resize, { passive: true });
+  }
 
   const phi = (1 + Math.sqrt(5)) / 2;
   const rawVertices = [
@@ -74,6 +84,19 @@ export function initAtelier3D() {
   let lastMouseY = 0;
   let autoSpeed = isReduced ? 0 : 0.005;
   let pulseTimer = 0;
+
+  // V3: Cache theme colors, update on themechange event
+  let cachedCopperRgb = '139, 94, 50';
+  let cachedAxisRgb = '32, 36, 38';
+
+  function updateThemeColors() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    cachedCopperRgb = isDark ? '193, 139, 97' : '139, 94, 50';
+    cachedAxisRgb = isDark ? '234, 231, 223' : '32, 36, 38';
+  }
+
+  updateThemeColors();
+  window.addEventListener('themechange', updateThemeColors);
 
   function onPointerDown(clientX, clientY) {
     isDragging = true;
@@ -148,6 +171,13 @@ export function initAtelier3D() {
   }
 
   function render() {
+    // V3: Guard against 0-dimension canvas
+    if (canvas.width === 0 || canvas.height === 0) {
+      resize();
+      if (isVisible && !isReduced) rafId = requestAnimationFrame(render);
+      return;
+    }
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.save();
@@ -165,9 +195,8 @@ export function initAtelier3D() {
 
     pulseTimer += 0.03;
 
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    const copperRgb = isDark ? '193, 139, 97' : '139, 94, 50';
-    const axisRgb = isDark ? '234, 231, 223' : '32, 36, 38';
+    const copperRgb = cachedCopperRgb;
+    const axisRgb = cachedAxisRgb;
 
     const cosX = Math.cos(rotX);
     const sinX = Math.sin(rotX);
