@@ -748,7 +748,7 @@ function initMagneticElements() {
   const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   if (!isFinePointer) return;
 
-  const magneticBtns = document.querySelectorAll('.btn--primary, .btn--telemetry-copy, .theme-toggle, .nav-menu-btn, .social-link, .nav-monogram, .footer-back-to-top');
+  const magneticBtns = document.querySelectorAll('.btn--primary, .btn--secondary, .btn--telemetry-copy, .btn--connection-cv, .nav-cv-btn, .theme-toggle, .nav-menu-btn, .social-link, .nav-monogram, .footer-back-to-top');
   magneticBtns.forEach((el) => {
     el.addEventListener('mousemove', (e) => {
       const rect = el.getBoundingClientRect();

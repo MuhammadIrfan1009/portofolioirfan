@@ -156,6 +156,52 @@ main#main-content {
   width: 100%;
 }
 
+.nav-desktop-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.nav-cv-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0 var(--space-3);
+  height: 40px;
+  border: 1px solid var(--surface-border);
+  border-radius: 2px;
+  background: var(--surface-panel);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--type-meta-s);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-decoration: none;
+  transition: border-color var(--transition-base), color var(--transition-base), background-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.nav-cv-arrow {
+  color: var(--accent);
+  transition: transform var(--transition-base);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-cv-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .nav-cv-btn:hover .nav-cv-arrow {
+    transform: translateY(1px);
+  }
+}
+
+.nav-cv-btn:active {
+  transform: translateY(0);
+}
+
 .theme-toggle {
   display: inline-flex;
   align-items: center;
@@ -398,6 +444,45 @@ dialog.nav-drawer::backdrop {
   border-top: 1px solid var(--surface-border);
   padding-top: var(--space-4);
   margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.nav-drawer-cv-btn {
+  width: 100%;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--surface-border);
+  border-radius: 2px;
+  background: var(--surface-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--type-meta-s);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wider);
+  text-decoration: none;
+  transition: border-color var(--transition-base), color var(--transition-base), background-color var(--transition-base), transform var(--transition-base);
+}
+
+.nav-drawer-cv-btn .drawer-cv-cta {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-drawer-cv-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+}
+
+.nav-drawer-cv-btn:active {
+  transform: translateY(0);
 }
 
 .theme-toggle--drawer {
