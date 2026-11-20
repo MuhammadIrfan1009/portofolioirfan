@@ -4,7 +4,7 @@
   "version": "2.6.0",
   "type": "module",
   "scripts": {
-    "bundle": "esbuild js/main.js --bundle --outfile=js/bundle.js --format=iife",
+    "bundle": "esbuild js/main.js --bundle --minify --outfile=js/bundle.js --format=iife",
     "dev": "vite",
     "build": "npm run bundle && vite build && node -e \"const fs = require('fs'); fs.mkdirSync('dist/js', {recursive: true}); fs.copyFileSync('js/bundle.js', 'dist/js/bundle.js'); fs.cpSync('img', 'dist/img', {recursive: true});\"",
     "preview": "vite preview"
@@ -13,7 +13,7 @@
     "gsap": "3.12.5"
   },
   "devDependencies": {
+    "sharp": "^0.35.5",
     "vite": "6.4.5"
   }
 }
-

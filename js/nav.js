@@ -11,18 +11,15 @@ export function initNavigation() {
   let closeReason = 'dismiss';
   let pendingNavigationTarget = null;
 
-  // Open drawer via showModal()
   menuBtn.addEventListener('click', () => {
     menuBtn.setAttribute('aria-expanded', 'true');
     dialog.showModal();
   });
 
-  // Escape key handler: set reason only, native cancellation proceeds
   dialog.addEventListener('cancel', () => {
     closeReason = 'dismiss';
   });
 
-  // Explicit close button
   if (closeBtn) {
     closeBtn.addEventListener('click', () => {
       closeReason = 'dismiss';
@@ -30,7 +27,6 @@ export function initNavigation() {
     });
   }
 
-  // Backdrop click dismissal
   dialog.addEventListener('click', (event) => {
     if (event.target === dialog) {
       const rect = dialog.getBoundingClientRect();
@@ -45,13 +41,11 @@ export function initNavigation() {
     }
   });
 
-  // Internal mobile drawer link navigation
   drawerLinks.forEach((link) => {
     link.addEventListener('click', (event) => {
       const href = link.getAttribute('href');
       if (!href || !href.startsWith('#')) return;
 
-      // Preserve modified and auxiliary clicks (Ctrl, Meta, Shift, Alt, middle-click)
       if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) {
         return;
       }
@@ -63,7 +57,6 @@ export function initNavigation() {
     });
   });
 
-  // Centralized close lifecycle
   dialog.addEventListener('close', () => {
     menuBtn.setAttribute('aria-expanded', 'false');
 
@@ -86,12 +79,10 @@ export function initNavigation() {
         return;
       }
 
-      // Dismissal path: return focus to trigger
       menuBtn.focus();
     });
   });
 
-  // Desktop navigation links and brand link
   function handleSmoothNav(event, link) {
     const href = link.getAttribute('href');
     if (!href || !href.startsWith('#')) return;
@@ -119,7 +110,6 @@ export function initNavigation() {
     brandLink.addEventListener('click', (e) => handleSmoothNav(e, brandLink));
   }
 
-  // Handle browser back/forward (popstate)
   window.addEventListener('popstate', () => {
     const hash = window.location.hash;
     if (hash && hash.startsWith('#')) {

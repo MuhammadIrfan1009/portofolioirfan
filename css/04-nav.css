@@ -164,11 +164,61 @@ main#main-content {
   height: 40px;
   border: 1px solid var(--surface-border);
   border-radius: 2px;
-  color: var(--text-primary);
+  color: var(--accent);
   cursor: pointer;
   background: var(--surface-panel);
-  font-size: 1rem;
   transition: border-color var(--transition-base), color var(--transition-base), background-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.theme-icon {
+  width: 20px;
+  height: 20px;
+  overflow: visible;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-center-circle {
+  transition: r 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: 12px 12px;
+}
+
+.theme-mask-circle {
+  transition: cx 0.45s cubic-bezier(0.4, 0, 0.2, 1), cy 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-icon-rays {
+  transform-origin: 12px 12px;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+}
+
+[data-theme="dark"] .theme-center-circle {
+  r: 9;
+  transform: rotate(-25deg);
+}
+
+[data-theme="dark"] .theme-mask-circle {
+  cx: 19px;
+  cy: 4px;
+}
+
+[data-theme="dark"] .theme-icon-rays {
+  opacity: 0;
+  transform: scale(0.3) rotate(45deg);
+}
+
+[data-theme="light"] .theme-center-circle {
+  r: 5;
+  transform: rotate(0deg);
+}
+
+[data-theme="light"] .theme-mask-circle {
+  cx: 28px;
+  cy: 4px;
+}
+
+[data-theme="light"] .theme-icon-rays {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -176,21 +226,16 @@ main#main-content {
     border-color: var(--accent);
     color: var(--accent);
     transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(193, 139, 97, 0.18);
+    box-shadow: 0 4px 14px rgba(193, 139, 97, 0.25);
   }
 
-  .theme-toggle:hover span {
-    transform: rotate(180deg);
+  .theme-toggle:hover .theme-icon {
+    transform: rotate(45deg);
   }
 }
 
 .theme-toggle:active {
-  transform: translateY(0);
-}
-
-.theme-toggle span {
-  display: inline-block;
-  transition: transform var(--transition-smooth) var(--ease-out);
+  transform: translateY(0) scale(0.95);
 }
 
 .nav-mobile-bar {
@@ -398,6 +443,19 @@ dialog.nav-drawer::backdrop {
 
   .nav-mobile-bar {
     display: flex;
+  }
+
+  .nav-drawer-close .close-word {
+    display: none;
+  }
+
+  .nav-drawer-close {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0;
+    font-size: 1.125rem;
   }
 }
 

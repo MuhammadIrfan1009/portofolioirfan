@@ -39,24 +39,16 @@ export function initTheme() {
 
   applyTheme(getPreferredTheme());
 
-  if (desktopToggle) {
-    desktopToggle.addEventListener('click', toggleTheme);
-    desktopToggle.addEventListener('keydown', (e) => {
+  const allToggles = [desktopToggle, drawerToggle].filter(Boolean);
+  allToggles.forEach(btn => {
+    btn.addEventListener('click', toggleTheme);
+    btn.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         toggleTheme();
       }
     });
-  }
-  if (drawerToggle) {
-    drawerToggle.addEventListener('click', toggleTheme);
-    drawerToggle.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggleTheme();
-      }
-    });
-  }
+  });
 
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
     if (!localStorage.getItem('theme')) {

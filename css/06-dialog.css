@@ -42,7 +42,7 @@ dialog.project-dialog {
   border-top: 3px solid var(--accent);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
   z-index: 1200;
-  overflow: hidden;
+  overflow: visible;
   box-sizing: border-box;
 }
 
@@ -69,6 +69,8 @@ body.dialog-open {
   flex-direction: column;
   max-height: 88vh;
   box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 2px;
 }
 
 .project-dialog-header {
@@ -167,6 +169,13 @@ body.dialog-open {
   overflow: hidden;
   flex-shrink: 0;
   border-radius: 2px;
+}
+
+.project-dialog-media picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .project-dialog-media img {
@@ -310,4 +319,458 @@ body.dialog-open {
     animation: none !important;
   }
 }
+
+dialog.certificate-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(720px, 92vw);
+  max-width: 720px;
+  max-height: 88vh;
+  padding: 0;
+  background: var(--surface-panel);
+  border: 1px solid var(--surface-border);
+  border-top: 3px solid var(--accent);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  z-index: 1200;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+[data-theme="dark"] dialog.certificate-dialog {
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+}
+
+dialog.certificate-dialog:not([open]) {
+  display: none;
+}
+
+dialog.certificate-dialog::backdrop {
+  background: rgba(10, 11, 12, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.certificate-dialog-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 88vh;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.certificate-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--surface-border);
+  background: var(--surface-canvas);
+  flex-shrink: 0;
+}
+
+.certificate-dialog-title {
+  font-family: var(--font-display);
+  font-size: var(--type-h3);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.certificate-dialog-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--surface-border);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: var(--type-meta-s);
+  color: var(--text-primary);
+  background: var(--surface-panel);
+  cursor: pointer;
+  transition: border-color var(--transition-base), color var(--transition-base), background-color var(--transition-base), transform var(--transition-base);
+}
+
+.certificate-dialog-close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.certificate-dialog-close:active {
+  transform: translateY(0);
+}
+
+.certificate-dialog-close:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.certificate-dialog-body {
+  padding: var(--space-6);
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-band);
+}
+
+.certificate-dialog-image {
+  max-width: 100%;
+  max-height: 70vh;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  border-radius: 2px;
+  border: 1px solid var(--surface-border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 767px) {
+  dialog.certificate-dialog {
+    width: 95vw;
+    max-height: 92vh;
+  }
+
+  .certificate-dialog-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .certificate-dialog-body {
+    padding: var(--space-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  dialog.certificate-dialog,
+  dialog.certificate-dialog::backdrop,
+  .certificate-dialog-container {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+dialog.project-dialog,
+dialog.certificate-dialog,
+dialog.toolkit-dialog {
+  cursor: default;
+}
+
+dialog.project-dialog button,
+dialog.project-dialog a,
+dialog.certificate-dialog button,
+dialog.toolkit-dialog button {
+  cursor: pointer;
+}
+
+dialog.toolkit-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(840px, 94vw);
+  max-width: 840px;
+  max-height: 90vh;
+  padding: 0;
+  background: var(--surface-panel);
+  border: 1px solid var(--surface-border);
+  border-top: 3px solid var(--accent);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.7), 0 0 40px rgba(193, 139, 97, 0.2);
+  z-index: 1200;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+dialog.toolkit-dialog:not([open]) {
+  display: none;
+}
+
+dialog.toolkit-dialog::backdrop {
+  background: rgba(8, 10, 14, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.toolkit-dialog-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.toolkit-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--surface-border);
+  background: var(--surface-band);
+}
+
+.toolkit-dialog-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.toolkit-dialog-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+  animation: pulse-telemetry 2s ease-in-out infinite;
+}
+
+.toolkit-dialog-tag {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: var(--tracking-widest);
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.toolkit-dialog-title {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.toolkit-dialog-close {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border: 1px solid var(--surface-border);
+  border-radius: 2px;
+  background: var(--surface-panel);
+  color: var(--text-meta);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: var(--tracking-wider);
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.toolkit-dialog-close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.toolkit-dialog-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: var(--space-6);
+  padding: var(--space-6);
+  background: var(--surface-panel);
+  align-items: center;
+}
+
+.toolkit-dialog-workstation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--surface-border);
+  border-radius: 2px;
+  background: var(--surface-canvas);
+  padding: var(--space-4);
+  position: relative;
+  overflow: hidden;
+}
+
+.toolkit-coder-canvas {
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 360 / 280;
+  height: auto;
+  display: block;
+}
+
+.toolkit-workstation-hud {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: var(--space-2);
+}
+
+.hud-pill {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: var(--tracking-widest);
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.toolkit-dialog-terminal {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--surface-border);
+  border-radius: 2px;
+  background: var(--surface-canvas);
+  overflow: hidden;
+}
+
+.terminal-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--surface-border);
+  background: var(--surface-band);
+}
+
+.term-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.term-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.term-dot.red { background: #ef4444; }
+.term-dot.yellow { background: #f59e0b; }
+.term-dot.green { background: #10b981; }
+
+.terminal-filename {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  color: var(--text-meta);
+  letter-spacing: var(--tracking-wide);
+}
+
+.terminal-code-stream {
+  margin: 0;
+  padding: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  word-break: break-all;
+  min-height: 160px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.terminal-caret {
+  display: inline-block;
+  color: var(--accent);
+  font-weight: 700;
+  animation: blink-caret 0.9s steps(2, start) infinite;
+}
+
+@keyframes blink-caret {
+  to { visibility: hidden; }
+}
+
+.terminal-telemetry-bar {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+  padding: 8px 12px;
+  border-top: 1px solid var(--surface-border);
+  background: var(--surface-band);
+  text-align: center;
+}
+
+.telemetry-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: var(--tracking-widest);
+  color: var(--text-meta);
+}
+
+.stat-val {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.stat-val.status-green {
+  color: #10b981;
+}
+
+@media (max-width: 767px) {
+  dialog.toolkit-dialog {
+    width: 95vw;
+    max-height: 92vh;
+  }
+
+  .toolkit-dialog-close .close-word,
+  .project-dialog-close .close-word {
+    display: none;
+  }
+
+  .toolkit-dialog-close,
+  .project-dialog-close {
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .toolkit-dialog-header {
+    padding: var(--space-3) var(--space-4);
+    gap: var(--space-3);
+  }
+
+  .toolkit-dialog-meta {
+    gap: var(--space-2);
+    min-width: 0;
+    flex: 1;
+  }
+
+  .toolkit-dialog-title {
+    font-size: 0.75rem;
+    line-height: 1.25;
+    overflow-wrap: break-word;
+  }
+
+  .toolkit-dialog-body {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    max-height: calc(88vh - 60px);
+    overflow-y: auto;
+  }
+
+  .toolkit-coder-canvas {
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 360 / 280;
+    height: auto;
+  }
+
+  .terminal-code-stream {
+    max-height: 170px;
+    font-size: 0.6875rem;
+  }
+}
+
 

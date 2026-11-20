@@ -12,13 +12,13 @@ export function initScrollInteraction() {
     .filter(Boolean);
 
   let activeSectionId = null;
+  let hashTimer = null;
   const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function updateActiveLink(id) {
     if (!id || id === activeSectionId) return;
     activeSectionId = id;
 
-    // Update desktop links
     desktopLinks.forEach((link) => {
       const match = link.getAttribute('href') === `#${id}`;
       link.classList.toggle('active', match);
@@ -29,7 +29,6 @@ export function initScrollInteraction() {
       }
     });
 
-    // Update drawer links
     drawerLinks.forEach((link) => {
       const match = link.getAttribute('href') === `#${id}`;
       link.classList.toggle('active', match);
@@ -40,18 +39,20 @@ export function initScrollInteraction() {
       }
     });
 
-    // Sync URL hash without triggering scroll jump
-    if (window.location.hash !== `#${id}`) {
-      history.replaceState(null, '', `#${id}`);
-    }
+    if (hashTimer) clearTimeout(hashTimer);
+    hashTimer = setTimeout(() => {
+      if (window.location.hash !== `#${id}`) {
+        try {
+          history.replaceState(null, '', `#${id}`);
+        } catch (err) {}
+      }
+    }, 150);
   }
 
-  // Try GSAP + ScrollTrigger
   let gsapInitialized = false;
   try {
     gsap.registerPlugin(ScrollTrigger);
 
-    // 1. Scroll progress bar
     if (progressBar) {
       ScrollTrigger.create({
         start: 'top top',
@@ -72,7 +73,6 @@ export function initScrollInteraction() {
       });
     }
 
-    // 2. Navbar scrolled state
     if (header) {
       ScrollTrigger.create({
         start: 'top -20px',
@@ -81,7 +81,6 @@ export function initScrollInteraction() {
       });
     }
 
-    // 3. Active section tracking
     sections.forEach((section) => {
       ScrollTrigger.create({
         trigger: section,
@@ -94,20 +93,16 @@ export function initScrollInteraction() {
 
     gsapInitialized = true;
   } catch (err) {
-    console.warn('GSAP ScrollTrigger initialization failed, using standard fallback:', err);
   }
 
-  // Functional fallback if GSAP is unavailable
   if (!gsapInitialized) {
     function onScrollFallback() {
       const scrollY = window.scrollY || window.pageYOffset;
 
-      // Header scrolled state
       if (header) {
         header.classList.toggle('site-header--scrolled', scrollY > 20);
       }
 
-      // Progress bar
       if (progressBar) {
         const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         const pct = maxScroll > 0 ? (scrollY / maxScroll) * 100 : 0;
@@ -118,7 +113,6 @@ export function initScrollInteraction() {
     window.addEventListener('scroll', onScrollFallback, { passive: true });
     onScrollFallback();
 
-    // IntersectionObserver for section tracking fallback
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -136,7 +130,6 @@ export function initScrollInteraction() {
     sections.forEach((section) => observer.observe(section));
   }
 
-  // Synchronize browser Back and Forward navigation
   window.addEventListener('popstate', () => {
     const hash = window.location.hash.replace(/^#/, '');
     if (hash && sectionIds.includes(hash)) {
@@ -148,7 +141,6 @@ export function initScrollInteraction() {
     }
   });
 
-  // Set initial active section on page load if hash present
   const initialHash = window.location.hash.replace(/^#/, '');
   if (initialHash && sectionIds.includes(initialHash)) {
     updateActiveLink(initialHash);
@@ -156,4 +148,3 @@ export function initScrollInteraction() {
     updateActiveLink(sections[0].id);
   }
 }
-

@@ -19,9 +19,10 @@ export function initProjectShowcase() {
     'SYS-001': {
       id: 'SYS-001 / FEATURED',
       title: 'SI FEST 2026',
-      subtitle: 'Sistem Informasi Festival 2026 Website',
+      subtitle: 'Festival Information Website & Chatbot Integration',
       placeholder: 'Tangkapan layar proyek SI FEST 2026',
-      image: 'img/img6.png',
+      image: 'img/img6.webp',
+      fallback: 'img/img6.png',
       roles: ['PIC Frontend Website', 'PIC Backend Chatbot Oscar'],
       note: 'Website resmi kegiatan festival Sistem Informasi dengan integrasi Chatbot Oscar untuk layanan informasi interaktif.',
       link: 'https://sifestunsri.com',
@@ -32,21 +33,23 @@ export function initProjectShowcase() {
       title: 'LOKA NIKAH',
       subtitle: 'Platform Reservasi Wedding Organizer',
       placeholder: 'Tangkapan layar proyek Loka Nikah',
-      image: 'img/img5.png',
+      image: 'img/img5.webp',
+      fallback: 'img/img5.png',
       roles: ['Frontend & Backend Implementation'],
-      note: 'Website wedding organizer yang menyediakan katalog layanan dan reservasi paket pernikahan secara online. Merupakan proyek kuliah (tugas kelompok) dengan kontribusi pada sisi frontend dan backend.',
+      note: 'Website wedding organizer yang menyediakan informasi dan reservasi secara online. Merupakan proyek kuliah dengan kontribusi pada sisi frontend dan backend.',
       link: 'https://loka-nikah.vercel.app',
       linkLabel: 'loka-nikah.vercel.app ↗'
     },
     'SYS-003': {
       id: 'SYS-003',
-      title: 'LINKTREE HIMSI',
-      subtitle: 'Landing Page Kurasi Tautan Organisasi',
+      title: 'E-KOMDIGI',
+      subtitle: 'Sistem Pengarsipan Surat Kantor',
       placeholder: null,
-      image: 'img/img2.png',
-      imageAlt: 'Tangkapan layar proyek Linktree HIMSI',
+      image: 'img/img3.webp',
+      fallback: 'img/img3.png',
+      imageAlt: 'Tangkapan layar proyek E-Komdigi',
       roles: [],
-      note: 'Landing page kurasi tautan resmi untuk mempermudah navigasi informasi dan media komunikasi organisasi HIMSI.',
+      note: 'Website untuk pengelolaan arsip surat kantor.',
       link: null,
       linkLabel: null
     },
@@ -55,22 +58,24 @@ export function initProjectShowcase() {
       title: 'ABSENGO',
       subtitle: 'Sistem Presensi Magang Instansi',
       placeholder: null,
-      image: 'img/img4.png',
+      image: 'img/img4.webp',
+      fallback: 'img/img4.png',
       imageAlt: 'Tangkapan layar proyek AbsenGo',
       roles: [],
-      note: 'Website presensi digital untuk pencatatan dan monitoring kehadiran pekerja magang di kantor pemerintah.',
+      note: 'Website absensi untuk pekerja magang di kantor pemerintah.',
       link: null,
       linkLabel: null
     },
     'SYS-005': {
       id: 'SYS-005',
-      title: 'E-KOMDIGI',
-      subtitle: 'Sistem Pengarsipan Surat Kantor',
+      title: 'LINKTREE HIMSI',
+      subtitle: 'Landing Page Kurasi Tautan Organisasi',
       placeholder: null,
-      image: 'img/img3.png',
-      imageAlt: 'Tangkapan layar proyek E-Komdigi',
+      image: 'img/img2.webp',
+      fallback: 'img/img2.png',
+      imageAlt: 'Tangkapan layar proyek Linktree HIMSI',
       roles: [],
-      note: 'Website internal untuk pengelolaan, pencatatan, dan pengarsipan surat dinas kantor secara digital.',
+      note: 'Landing page kurasi tautan resmi untuk mempermudah navigasi informasi dan media komunikasi organisasi HIMSI.',
       link: null,
       linkLabel: null
     },
@@ -79,10 +84,11 @@ export function initProjectShowcase() {
       title: 'GORYUK',
       subtitle: 'Platform Reservasi Gelanggang Olahraga',
       placeholder: null,
-      image: 'img/img1.png',
+      image: 'img/img1.webp',
+      fallback: 'img/img1.png',
       imageAlt: 'Tangkapan layar proyek GorYuk',
       roles: [],
-      note: 'Website lokal untuk pemesanan online gelanggang olahraga secara umum. Merupakan proyek sekolah yang dibangun menggunakan PHP Native.',
+      note: 'Website pemesanan online gelanggang olahraga.',
       link: null,
       linkLabel: null
     }
@@ -105,11 +111,12 @@ export function initProjectShowcase() {
     }
 
     const cardImg = triggerEl ? triggerEl.querySelector('.project-image') : null;
-    const finalImageSrc = cardImg ? cardImg.getAttribute('src') : data.image;
+    const finalImageSrc = data.image || (cardImg ? cardImg.getAttribute('src') : null);
+    const finalFallbackSrc = data.fallback || (cardImg ? cardImg.getAttribute('src') : null);
     const finalImageAlt = cardImg ? cardImg.getAttribute('alt') : (data.imageAlt || data.title);
 
     if (finalImageSrc) {
-      mediaEl.innerHTML = `<img src="${finalImageSrc}" alt="${finalImageAlt}" loading="eager">`;
+      mediaEl.innerHTML = `<picture><source srcset="${finalImageSrc}" type="image/webp"><img src="${finalFallbackSrc}" alt="${finalImageAlt}" loading="eager" decoding="async"></picture>`;
       mediaEl.style.display = 'block';
     } else if (data.placeholder) {
       mediaEl.innerHTML = `<div class="project-image-placeholder"><span class="project-image-placeholder-label">${data.placeholder}</span></div>`;
@@ -141,6 +148,11 @@ export function initProjectShowcase() {
 
     dialog.showModal();
     document.body.classList.add('dialog-open');
+
+    const cursorEl = document.querySelector('.atelier-cursor');
+    if (cursorEl) {
+      dialog.appendChild(cursorEl);
+    }
 
     const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const container = dialog.querySelector('.project-dialog-container');
@@ -224,6 +236,10 @@ export function initProjectShowcase() {
 
   dialog.addEventListener('close', () => {
     document.body.classList.remove('dialog-open');
+    const cursorEl = dialog.querySelector('.atelier-cursor');
+    if (cursorEl) {
+      document.body.appendChild(cursorEl);
+    }
     if (activeTrigger && typeof activeTrigger.focus === 'function') {
       activeTrigger.focus();
     }

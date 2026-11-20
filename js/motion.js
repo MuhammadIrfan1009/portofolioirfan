@@ -13,73 +13,117 @@ export function initMotion() {
   try {
     gsap.registerPlugin(ScrollTrigger);
   } catch (err) {
-    console.warn('Motion: GSAP initialization failed', err);
     return;
   }
 
-  // Signal motion readiness
   document.body.classList.add('motion-ready');
 
   initCinematicOpening();
   initBlueprintParallax();
+  initKineticWatermarks();
+  initSectionTransitions();
   initSectionStorytelling();
+  initInteractiveCardPhysics();
+  initMagneticElements();
 }
 
 function initCinematicOpening() {
   const entrance = document.querySelector('.section--entrance');
   const shutter = document.getElementById('atelier-shutter');
-  if (!entrance) return;
+  if (!entrance || !shutter) return;
 
   const isMobile = window.matchMedia('(max-width: 899px)').matches;
+  const topPanel = shutter.querySelector('.shutter-panel--top');
+  const bottomPanel = shutter.querySelector('.shutter-panel--bottom');
+  const centerLine = shutter.querySelector('.shutter-center-line');
+  const calibration = shutter.querySelector('.shutter-calibration');
+  const brandMark = shutter.querySelector('.shutter-brand-mark');
+  const brandTitle = shutter.querySelector('.shutter-brand-title');
+  const brandSub = shutter.querySelector('.shutter-brand-sub');
+  const progressBar = shutter.querySelector('.shutter-progress-bar');
+  const counterEl = shutter.querySelector('.shutter-counter');
+
+  const progressCounter = { val: 0 };
+
   const tl = gsap.timeline({
     defaults: { ease: 'power3.out' },
     onComplete: () => {
-      if (shutter) {
-        shutter.style.display = 'none';
-      }
+      shutter.style.display = 'none';
     }
   });
 
-  const topPanel = document.querySelector('.shutter-panel--top');
-  const bottomPanel = document.querySelector('.shutter-panel--bottom');
-  const calibration = document.querySelector('.shutter-calibration');
-  const calibStatus = document.querySelector('.shutter-mono-status');
-
-  // Step 1: Calibration readout pulse (0.0s - 0.5s)
-  if (calibration) {
-    tl.fromTo(calibration, { opacity: 0, scale: 0.98 }, { opacity: 1, scale: 1, duration: 0.35 }, 0);
-    if (calibStatus) {
-      tl.to(calibStatus, { opacity: 0.4, duration: 0.15, repeat: 1, yoyo: true }, 0.2);
+  // Failsafe: guarantee shutter never locks screen if page/tab is backgrounded
+  setTimeout(() => {
+    if (shutter && shutter.style.display !== 'none') {
+      shutter.style.display = 'none';
     }
-    tl.to(calibration, { opacity: 0, scale: 1.02, duration: 0.3, ease: 'power2.in' }, 0.5);
+  }, 2200);
+
+  if (calibration) {
+    tl.fromTo(brandMark,
+      { opacity: 0, scale: 0.6, rotate: -45 },
+      { opacity: 1, scale: 1, rotate: 0, duration: 0.45, ease: 'back.out(2)' },
+      0.05
+    );
+
+    tl.fromTo([brandTitle, brandSub],
+      { opacity: 0, y: 15 },
+      { opacity: 1, y: 0, duration: 0.45, stagger: 0.08 },
+      0.15
+    );
+
+    if (progressBar && counterEl) {
+      tl.to(progressBar, { width: '100%', duration: 0.6, ease: 'power2.inOut' }, 0.2);
+      tl.to(progressCounter, {
+        val: 100,
+        duration: 0.6,
+        ease: 'power2.inOut',
+        onUpdate: () => {
+          const num = Math.round(progressCounter.val);
+          counterEl.textContent = `${num < 10 ? '0' + num : num}%`;
+        }
+      }, 0.2);
+    }
+
+    tl.to(calibration, { opacity: 0, scale: 0.95, duration: 0.25, ease: 'power2.in' }, 0.8);
   }
 
-  // Step 2: Architectural shutter panel wipe (0.6s - 1.3s)
+  if (centerLine) {
+    tl.to(centerLine, { scaleX: 1, duration: 0.35, ease: 'expo.inOut' }, 0.85);
+    tl.to(centerLine, { opacity: 0, duration: 0.2, ease: 'power2.out' }, 1.15);
+  }
+
   if (topPanel && bottomPanel) {
-    tl.to(topPanel, { yPercent: -100, duration: isMobile ? 0.65 : 0.8, ease: 'power4.inOut' }, 0.6);
-    tl.to(bottomPanel, { yPercent: 100, duration: isMobile ? 0.65 : 0.8, ease: 'power4.inOut' }, 0.6);
+    tl.to(topPanel, { yPercent: -100, duration: isMobile ? 0.65 : 0.8, ease: 'power4.inOut' }, 0.95);
+    tl.to(bottomPanel, { yPercent: 100, duration: isMobile ? 0.65 : 0.8, ease: 'power4.inOut' }, 0.95);
   }
 
-  // Step 3: Blueprint grid construction (0.9s)
   const grid = entrance.querySelector('.blueprint-grid');
   if (grid) {
-    tl.to(grid, { opacity: 0.12, duration: 0.7, ease: 'power2.out' }, 0.9);
-  }
-
-  // Step 4: Eyebrow label & Avatar (1.1s - 1.25s)
-  const indexLabel = entrance.querySelector('.section-index-label');
-  if (indexLabel) {
-    indexLabel.classList.add('hero-reveal--eyebrow');
-    tl.to(indexLabel, { opacity: 1, y: 0, duration: 0.45 }, 1.1);
+    tl.to(grid, { opacity: 0.14, duration: 0.8, ease: 'power2.out' }, 1.1);
   }
 
   const avatar = entrance.querySelector('.entrance-avatar');
   if (avatar) {
     avatar.classList.add('hero-reveal--avatar');
-    tl.to(avatar, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.5)' }, 1.2);
+    tl.to(avatar, { opacity: 1, scale: 1, rotate: 0, duration: 0.7, ease: 'back.out(1.5)' }, 1.2);
   }
 
-  // Step 5: Headline unmasking (1.3s)
+  const telemetry = entrance.querySelector('.entrance-telemetry');
+  if (telemetry) {
+    tl.fromTo(telemetry,
+      { opacity: 0, y: -10 },
+      { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' },
+      1.25
+    );
+  }
+
+  const indexLabel = entrance.querySelector('.section-index-label');
+  if (indexLabel) {
+    indexLabel.classList.add('hero-reveal--eyebrow');
+    tl.to(indexLabel, { opacity: 1, y: 0, duration: 0.4 }, 1.3);
+  }
+
   const name = entrance.querySelector('.entrance-name');
   if (name) {
     name.classList.add('hero-reveal--name');
@@ -87,50 +131,51 @@ function initCinematicOpening() {
       opacity: 1,
       y: 0,
       clipPath: 'inset(0 0% 0 0)',
-      duration: 0.75,
-      ease: 'power3.out'
-    }, 1.3);
+      duration: 0.85,
+      ease: 'power4.out'
+    }, 1.35);
   }
 
-  // Step 6: GPA, Tagline & CTA button entrance (1.55s - 1.8s)
   const gpa = entrance.querySelector('.entrance-gpa');
   if (gpa) {
     gpa.classList.add('hero-reveal');
-    tl.to(gpa, { opacity: 1, y: 0, duration: 0.4 }, 1.55);
+    tl.to(gpa, { opacity: 1, y: 0, duration: 0.4 }, 1.5);
   }
 
   const tagline = entrance.querySelector('.entrance-tagline');
   if (tagline) {
     tagline.classList.add('hero-reveal');
-    tl.to(tagline, { opacity: 1, y: 0, duration: 0.45 }, 1.65);
+    tl.to(tagline, { opacity: 1, y: 0, duration: 0.45 }, 1.6);
   }
 
-  const cta = entrance.querySelector('.btn--primary');
-  if (cta) {
-    cta.classList.add('hero-reveal--cta');
-    tl.to(cta, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 1.75);
+  const actions = entrance.querySelector('.entrance-actions');
+  if (actions) {
+    tl.fromTo(actions,
+      { opacity: 0, y: 15 },
+      { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out' },
+      1.7
+    );
   }
 
-  // Step 7: Copper line drawing & light-sweep flare (1.8s - 2.5s)
   const copperTrack = entrance.querySelector('.copper-accent-line .copper-track');
   const copperFlare = entrance.querySelector('.copper-accent-line .copper-flare');
 
   if (copperTrack) {
-    tl.to(copperTrack, { strokeDashoffset: 0, duration: 0.8, ease: 'power2.inOut' }, 1.8);
+    tl.to(copperTrack, { strokeDashoffset: 0, duration: 0.8, ease: 'power2.inOut' }, 1.7);
   }
 
   if (copperFlare) {
     tl.fromTo(copperFlare,
       { attr: { cx: 0 }, opacity: 0 },
-      { opacity: 1, duration: 0.15 },
-      1.8
+      { opacity: 1, duration: 0.12 },
+      1.7
     );
     tl.to(copperFlare, {
       attr: { cx: 1200 },
       duration: 0.75,
       ease: 'power2.inOut'
-    }, 1.85);
-    tl.to(copperFlare, { opacity: 0, duration: 0.2 }, 2.45);
+    }, 1.75);
+    tl.to(copperFlare, { opacity: 0, duration: 0.15 }, 2.3);
   }
 }
 
@@ -138,15 +183,15 @@ function initBlueprintParallax() {
   const grid = document.querySelector('.section--entrance .blueprint-grid');
   if (!grid) return;
 
-  const canHover = window.matchMedia('(hover: hover)').matches;
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   ScrollTrigger.create({
     trigger: '.section--entrance',
     start: 'top top',
     end: 'bottom top',
-    scrub: 0.6,
+    scrub: 0.5,
     onUpdate: (self) => {
-      gsap.set(grid, { opacity: 0.12 - self.progress * 0.08 });
+      gsap.set(grid, { opacity: 0.14 - self.progress * 0.1 });
     }
   });
 
@@ -157,8 +202,8 @@ function initBlueprintParallax() {
       const xPct = (e.clientX - rect.left) / rect.width - 0.5;
       const yPct = (e.clientY - rect.top) / rect.height - 0.5;
       gsap.to(grid, {
-        x: xPct * 10,
-        y: yPct * 6,
+        x: xPct * 24,
+        y: yPct * 16,
         duration: 0.8,
         ease: 'power2.out',
         overwrite: 'auto'
@@ -171,12 +216,84 @@ function initBlueprintParallax() {
   }
 }
 
+function initKineticWatermarks() {
+  const watermarks = [
+    { selector: '.section--mind .section-watermark span', xPct: -15 },
+    { selector: '.section--toolkit .section-watermark span', xPct: 15 },
+    { selector: '.section--works .section-watermark span', xPct: -18 },
+    { selector: '.section--people .section-watermark span', xPct: 16 },
+    { selector: '.section--connection .section-watermark span', xPct: -14 }
+  ];
+
+  watermarks.forEach(({ selector, xPct }) => {
+    const el = document.querySelector(selector);
+    if (!el) return;
+    const parentSection = el.closest('.section');
+    if (!parentSection) return;
+
+    ScrollTrigger.create({
+      trigger: parentSection,
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: 0.8,
+      onUpdate: (self) => {
+        const offset = (self.progress - 0.5) * xPct;
+        gsap.set(el, { xPercent: offset });
+      }
+    });
+  });
+}
+
+function initSectionTransitions() {
+  const entrance = document.querySelector('.section--entrance');
+  const entranceInner = entrance ? entrance.querySelector('.section-inner') : null;
+  const canvas3d = document.getElementById('atelier-3d-canvas');
+  if (entrance && entranceInner) {
+    ScrollTrigger.create({
+      trigger: entrance,
+      start: 'top top',
+      end: 'bottom top',
+      scrub: 0.5,
+      onUpdate: (self) => {
+        const p = self.progress;
+        gsap.set(entranceInner, {
+          y: p * 40,
+          opacity: Math.max(0, 1 - p * 1.25),
+          scale: 1 - p * 0.03
+        });
+        if (canvas3d) {
+          gsap.set(canvas3d, {
+            scale: 1 - p * 0.08,
+            opacity: Math.max(0, 1 - p * 1.3)
+          });
+        }
+      }
+    });
+  }
+
+  const sections = document.querySelectorAll('.section:not(.section--entrance)');
+  sections.forEach((sec) => {
+    ScrollTrigger.create({
+      trigger: sec,
+      start: 'top 92%',
+      end: 'top 30%',
+      scrub: 0.6,
+      onUpdate: (self) => {
+        const p = self.progress;
+        gsap.set(sec, {
+          borderTopColor: `rgba(193, 139, 97, ${p * 0.85})`,
+          boxShadow: `0 -2px 24px rgba(193, 139, 97, ${p * 0.16})`
+        });
+      }
+    });
+  });
+}
+
 function animateSectionHeader(section) {
   const indexLabel = section.querySelector('.section-index-label');
   const title = section.querySelector('.section-title');
   const subtitle = section.querySelector('.section-subtitle');
 
-  // Inject architectural ruler line if not present
   let ruler = section.querySelector('.section-title-ruler');
   if (!ruler && title) {
     ruler = document.createElement('div');
@@ -185,286 +302,476 @@ function animateSectionHeader(section) {
     title.insertAdjacentElement('afterend', ruler);
   }
 
-  const tl = gsap.timeline();
+  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
   if (indexLabel) {
-    tl.fromTo(indexLabel, { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0);
+    tl.fromTo(indexLabel,
+      { opacity: 0, y: -10, letterSpacing: '0.22em' },
+      { opacity: 1, y: 0, letterSpacing: 'var(--tracking-widest)', duration: 0.55 },
+      0
+    );
   }
+
   if (title) {
-    tl.fromTo(title, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.1);
+    tl.fromTo(title,
+      { opacity: 0, y: 24 },
+      { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out' },
+      0.06
+    );
   }
+
   if (ruler) {
-    tl.fromTo(ruler, { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: 'power3.inOut' }, 0.2);
+    tl.fromTo(ruler,
+      { scaleX: 0 },
+      { scaleX: 1, duration: 0.75, ease: 'power3.inOut' },
+      0.14
+    );
   }
+
   if (subtitle) {
-    tl.fromTo(subtitle, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 0.25);
+    tl.fromTo(subtitle,
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.55 },
+      0.22
+    );
   }
+
   return tl;
 }
 
 function initSectionStorytelling() {
-  // =========================================================================
-  // 1. MIND (02) — The 3D Drafting Table Cards & Blueprint Bio
-  // =========================================================================
   const mind = document.querySelector('.section--mind');
   if (mind) {
+    const cards = mind.querySelectorAll('.mind-card');
+    const bio = mind.querySelector('.mind-bio');
+    let revealed = false;
+
+    const revealMind = () => {
+      if (revealed) return;
+      revealed = true;
+      animateSectionHeader(mind);
+
+      gsap.to(cards, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.85,
+        stagger: 0.12,
+        ease: 'power3.out',
+        overwrite: 'auto'
+      });
+
+      if (bio) {
+        gsap.to(bio, { opacity: 1, y: 0, duration: 0.75, delay: 0.35, ease: 'power3.out', overwrite: 'auto' });
+      }
+    };
+
     ScrollTrigger.create({
       trigger: mind,
-      start: 'top 75%',
+      start: 'top 85%',
       once: true,
-      onEnter: () => {
-        animateSectionHeader(mind);
-
-        const cards = mind.querySelectorAll('.mind-card');
-        if (cards.length >= 3) {
-          // Card 1: Swing from bottom-left
-          gsap.fromTo(cards[0],
-            { opacity: 0, x: -45, y: 55, rotateY: -16, rotateZ: -2 },
-            { opacity: 1, x: 0, y: 0, rotateY: 0, rotateZ: 0, duration: 0.85, delay: 0.2, ease: 'power3.out' }
-          );
-          // Card 2: Swing from center with forward pitch
-          gsap.fromTo(cards[1],
-            { opacity: 0, y: 70, rotateX: 22, scale: 0.92 },
-            { opacity: 1, y: 0, rotateX: 0, scale: 1, duration: 0.85, delay: 0.35, ease: 'power3.out' }
-          );
-          // Card 3: Swing from bottom-right
-          gsap.fromTo(cards[2],
-            { opacity: 0, x: 45, y: 55, rotateY: 16, rotateZ: 2 },
-            { opacity: 1, x: 0, y: 0, rotateY: 0, rotateZ: 0, duration: 0.85, delay: 0.5, ease: 'power3.out' }
-          );
-        } else {
-          gsap.to(cards, { opacity: 1, y: 0, duration: 0.7, stagger: 0.15, ease: 'power3.out' });
-        }
-
-        const bio = mind.querySelector('.mind-bio');
-        if (bio) {
-          gsap.fromTo(bio,
-            { opacity: 0, x: -35 },
-            {
-              opacity: 1,
-              x: 0,
-              duration: 0.75,
-              delay: 0.65,
-              ease: 'power3.out',
-              onStart: () => bio.classList.add('revealed')
-            }
-          );
-        }
+      onEnter: revealMind,
+      onRefresh: (self) => {
+        if (self.progress > 0) revealMind();
       }
     });
   }
 
-  // =========================================================================
-  // 2. TOOLKIT (03) — Mechanical Assembly Matrix & Tag Pop Cascade
-  // =========================================================================
   const toolkit = document.querySelector('.section--toolkit');
   if (toolkit) {
+    let revealed = false;
+
+    const revealToolkit = () => {
+      if (revealed) return;
+      revealed = true;
+      animateSectionHeader(toolkit);
+
+      const domains = toolkit.querySelectorAll('.toolkit-domain');
+      domains.forEach((domain, idx) => {
+        gsap.to(domain, {
+          opacity: 1,
+          y: 0,
+          duration: 0.65,
+          delay: 0.08 * idx,
+          ease: 'power3.out',
+          overwrite: 'auto'
+        });
+
+        const tags = domain.querySelectorAll('.toolkit-tag');
+        if (tags.length > 0) {
+          gsap.to(tags, {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 0.35,
+            stagger: 0.02,
+            delay: 0.15 + 0.08 * idx,
+            ease: 'back.out(1.6)',
+            overwrite: 'auto'
+          });
+        }
+      });
+    };
+
     ScrollTrigger.create({
       trigger: toolkit,
-      start: 'top 75%',
+      start: 'top 85%',
       once: true,
-      onEnter: () => {
-        animateSectionHeader(toolkit);
-
-        const domains = toolkit.querySelectorAll('.toolkit-domain');
-        domains.forEach((domain, idx) => {
-          // Alternating mechanical entry vectors
-          const fromVector = (idx % 2 === 0) ? { x: -45 } : { x: 45 };
-          const heading = domain.querySelector('.toolkit-domain-title');
-          if (heading) {
-            gsap.fromTo(heading,
-              { opacity: 0, ...fromVector },
-              { opacity: 1, x: 0, duration: 0.5, delay: 0.18 * idx, ease: 'power3.out' }
-            );
-          }
-
-          // Mechanical tag pops: popping in like physical typewriter/switchboard keys
-          const tags = domain.querySelectorAll('.toolkit-tag');
-          gsap.fromTo(tags,
-            { opacity: 0, scale: 0.35, y: 15 },
-            {
-              opacity: 1,
-              scale: 1,
-              y: 0,
-              duration: 0.4,
-              stagger: 0.045,
-              delay: 0.25 + 0.18 * idx,
-              ease: 'back.out(2.8)'
-            }
-          );
-        });
+      onEnter: revealToolkit,
+      onRefresh: (self) => {
+        if (self.progress > 0) revealToolkit();
       }
     });
   }
 
-  // =========================================================================
-  // 3. WORKS (04) — Architectural Blueprint Drawings & Optical Image Zoom
-  // =========================================================================
   const works = document.querySelector('.section--works');
   if (works) {
+    let headerRevealed = false;
+    const revealWorksHeader = () => {
+      if (headerRevealed) return;
+      headerRevealed = true;
+      animateSectionHeader(works);
+    };
+
     ScrollTrigger.create({
       trigger: works,
-      start: 'top 75%',
+      start: 'top 85%',
       once: true,
-      onEnter: () => {
-        animateSectionHeader(works);
-
-        // Featured Project: Dramatic vertical zoom-in & copper badge flash
-        const featured = works.querySelector('.project-card--featured');
-        if (featured) {
-          gsap.fromTo(featured,
-            { opacity: 0, scale: 0.88, y: 65 },
-            { opacity: 1, scale: 1, y: 0, duration: 0.9, delay: 0.25, ease: 'power3.out' }
-          );
-
-          const badge = featured.querySelector('.project-id');
-          if (badge) {
-            gsap.fromTo(badge,
-              { opacity: 0, x: -20 },
-              { opacity: 1, x: 0, duration: 0.5, delay: 0.5, ease: 'back.out(1.8)' }
-            );
-          }
-        }
-
-        // Standard Project Grid: Alternating directional entry + Image optical settle
-        const standardCards = works.querySelectorAll('.project-card:not(.project-card--featured)');
-        standardCards.forEach((card, idx) => {
-          ScrollTrigger.create({
-            trigger: card,
-            start: 'top 85%',
-            once: true,
-            onEnter: () => {
-              const isEven = (idx % 2 === 0);
-              const fromX = isEven ? -35 : 35;
-
-              gsap.fromTo(card,
-                { opacity: 0, x: fromX, y: 40 },
-                { opacity: 1, x: 0, y: 0, duration: 0.75, ease: 'power3.out' }
-              );
-
-              // Optical settling of screenshot image inside card
-              const img = card.querySelector('.project-image');
-              if (img) {
-                gsap.fromTo(img,
-                  { scale: 1.18 },
-                  { scale: 1, duration: 0.95, ease: 'power2.out' }
-                );
-              }
-
-              const idTag = card.querySelector('.project-id');
-              if (idTag) {
-                gsap.fromTo(idTag,
-                  { opacity: 0, x: -15 },
-                  { opacity: 1, x: 0, duration: 0.45, delay: 0.2, ease: 'power2.out' }
-                );
-              }
-            }
-          });
-        });
+      onEnter: revealWorksHeader,
+      onRefresh: (self) => {
+        if (self.progress > 0) revealWorksHeader();
       }
+    });
+
+    const featured = works.querySelector('.project-card--featured');
+    if (featured) {
+      let featuredRevealed = false;
+      const revealFeatured = () => {
+        if (featuredRevealed) return;
+        featuredRevealed = true;
+        gsap.to(featured, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.85,
+          delay: 0.08,
+          ease: 'power3.out',
+          overwrite: 'auto'
+        });
+      };
+
+      ScrollTrigger.create({
+        trigger: featured,
+        start: 'top 88%',
+        once: true,
+        onEnter: revealFeatured,
+        onRefresh: (self) => {
+          if (self.progress > 0) revealFeatured();
+        }
+      });
+    }
+
+    const standardCards = works.querySelectorAll('.project-card:not(.project-card--featured)');
+    standardCards.forEach((card, idx) => {
+      let cardRevealed = false;
+      const revealCard = () => {
+        if (cardRevealed) return;
+        cardRevealed = true;
+        gsap.to(card, {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          delay: (idx % 2) * 0.1,
+          ease: 'power3.out',
+          overwrite: 'auto'
+        });
+      };
+
+      ScrollTrigger.create({
+        trigger: card,
+        start: 'top 92%',
+        once: true,
+        onEnter: revealCard,
+        onRefresh: (self) => {
+          if (self.progress > 0) revealCard();
+        }
+      });
     });
   }
 
-  // =========================================================================
-  // 4. PEOPLE (05) — Scroll-Linked Timeline Progress Gauge & Node Halo Pops
-  // =========================================================================
   const people = document.querySelector('.section--people');
   if (people) {
+    let headerRevealed = false;
+    const revealPeopleHeader = () => {
+      if (headerRevealed) return;
+      headerRevealed = true;
+      animateSectionHeader(people);
+    };
+
     ScrollTrigger.create({
       trigger: people,
-      start: 'top 75%',
+      start: 'top 85%',
       once: true,
-      onEnter: () => {
-        animateSectionHeader(people);
+      onEnter: revealPeopleHeader,
+      onRefresh: (self) => {
+        if (self.progress > 0) revealPeopleHeader();
       }
     });
 
-    const timelineContainer = people.querySelector('.timeline');
-    if (timelineContainer) {
-      // Add real-time copper progress gauge line
-      let gauge = timelineContainer.querySelector('.timeline-progress-gauge');
-      if (!gauge) {
-        gauge = document.createElement('div');
-        gauge.className = 'timeline-progress-gauge';
-        gauge.setAttribute('aria-hidden', 'true');
-        timelineContainer.prepend(gauge);
-      }
+    const rows = people.querySelectorAll('.ledger-row');
+    rows.forEach((row, idx) => {
+      let rowRevealed = false;
+      const revealRow = () => {
+        if (rowRevealed) return;
+        rowRevealed = true;
+        gsap.to(row, {
+          opacity: 1,
+          x: 0,
+          duration: 0.6,
+          delay: (idx % 3) * 0.06,
+          ease: 'power3.out',
+          overwrite: 'auto'
+        });
+      };
 
-      // Scrub the copper line directly as the user scrolls through the timeline!
       ScrollTrigger.create({
-        trigger: timelineContainer,
-        start: 'top 70%',
-        end: 'bottom 85%',
-        scrub: 0.5,
-        onUpdate: (self) => {
-          gsap.set(gauge, { height: `${(self.progress * 100).toFixed(1)}%` });
-        }
-      });
-    }
-
-    const entries = people.querySelectorAll('.timeline-entry');
-    entries.forEach((entry) => {
-      ScrollTrigger.create({
-        trigger: entry,
-        start: 'top 82%',
+        trigger: row,
+        start: 'top 92%',
         once: true,
-        onEnter: () => {
-          gsap.fromTo(entry,
-            { opacity: 0, x: -35 },
-            { opacity: 1, x: 0, duration: 0.6, ease: 'power3.out' }
-          );
-
-          // Node pops open with halo pulse
-          const node = entry.querySelector('.timeline-node');
-          if (node) {
-            gsap.fromTo(node,
-              { scale: 0, opacity: 0, boxShadow: '0 0 0 10px rgba(193, 139, 97, 0.5)' },
-              { scale: 1, opacity: 1, boxShadow: '0 0 0 0px rgba(193, 139, 97, 0)', duration: 0.5, delay: 0.1, ease: 'back.out(2.5)' }
-            );
-          }
+        onEnter: revealRow,
+        onRefresh: (self) => {
+          if (self.progress > 0) revealRow();
         }
       });
     });
 
-    // Education section
-    const eduBlock = people.querySelector('.education-block');
-    if (eduBlock) {
-      ScrollTrigger.create({
-        trigger: eduBlock,
-        start: 'top 80%',
-        once: true,
-        onEnter: () => {
-          const eduTitle = eduBlock.querySelector('.education-block-title');
-          if (eduTitle) {
-            gsap.fromTo(eduTitle,
-              { opacity: 0, y: 18 },
-              { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }
-            );
+    const academicDossier = people.querySelector('.academic-dossier');
+    if (academicDossier) {
+      let dossierRevealed = false;
+      const revealDossier = () => {
+        if (dossierRevealed) return;
+        dossierRevealed = true;
+
+        const featuredCard = academicDossier.querySelector('.academic-card--featured');
+        if (featuredCard) {
+          gsap.to(featuredCard, {
+            opacity: 1,
+            y: 0,
+            duration: 0.75,
+            ease: 'power3.out',
+            overwrite: 'auto'
+          });
+
+          const numLarge = featuredCard.querySelector('.academic-num-large');
+          if (numLarge) {
+            const counter = { val: 0 };
+            gsap.to(counter, {
+              val: 3.93,
+              duration: 1.4,
+              ease: 'power2.out',
+              onUpdate: () => {
+                numLarge.textContent = counter.val.toFixed(2).replace('.', ',');
+              }
+            });
           }
+        }
+
+        const secondaryCards = academicDossier.querySelectorAll('.academic-card--secondary');
+        if (secondaryCards.length > 0) {
+          gsap.to(secondaryCards, {
+            opacity: 1,
+            y: 0,
+            duration: 0.65,
+            stagger: 0.1,
+            delay: 0.15,
+            ease: 'power3.out',
+            overwrite: 'auto'
+          });
+        }
+      };
+
+      ScrollTrigger.create({
+        trigger: academicDossier,
+        start: 'top 88%',
+        once: true,
+        onEnter: revealDossier,
+        onRefresh: (self) => {
+          if (self.progress > 0) revealDossier();
         }
       });
     }
   }
 
-  // =========================================================================
-  // 5. CONNECTION (06) — Direct Channel Beam
-  // =========================================================================
   const connection = document.querySelector('.section--connection');
   if (connection) {
+    let revealed = false;
+    const revealConnection = () => {
+      if (revealed) return;
+      revealed = true;
+      animateSectionHeader(connection);
+
+      const leftBlock = connection.querySelector('.connection-left');
+      if (leftBlock) {
+        gsap.to(leftBlock, {
+          opacity: 1,
+          x: 0,
+          duration: 0.7,
+          delay: 0.1,
+          ease: 'power3.out',
+          overwrite: 'auto'
+        });
+      }
+
+      const rightBlock = connection.querySelector('.connection-channels');
+      if (rightBlock) {
+        gsap.to(rightBlock, {
+          opacity: 1,
+          x: 0,
+          duration: 0.7,
+          delay: 0.2,
+          ease: 'power3.out',
+          overwrite: 'auto'
+        });
+      }
+    };
+
     ScrollTrigger.create({
       trigger: connection,
-      start: 'top 80%',
+      start: 'top 85%',
       once: true,
-      onEnter: () => {
-        animateSectionHeader(connection);
-
-        const socialLink = connection.querySelector('.social-link');
-        if (socialLink) {
-          gsap.fromTo(socialLink,
-            { opacity: 0, y: 20, scale: 0.95 },
-            { opacity: 1, y: 0, scale: 1, duration: 0.6, delay: 0.3, ease: 'back.out(2)' }
-          );
-        }
+      onEnter: revealConnection,
+      onRefresh: (self) => {
+        if (self.progress > 0) revealConnection();
       }
     });
   }
+
+  // Universal safety check: guarantee all content is visible if network or layout shifted
+  setTimeout(() => {
+    ScrollTrigger.refresh();
+    const hidden = document.querySelectorAll(
+      '.mind-card, .toolkit-tag, .project-card, .ledger-row, .academic-card, .academic-dossier-header'
+    );
+    hidden.forEach((el) => {
+      const style = window.getComputedStyle(el);
+      if (style.opacity === '0') {
+        gsap.to(el, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.35, overwrite: 'auto' });
+      }
+    });
+  }, 1200);
+}
+
+function initInteractiveCardPhysics() {
+  const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!isFinePointer) return;
+
+  const mindCards = Array.from(document.querySelectorAll('.mind-card'));
+  mindCards.forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const xPct = (e.clientX - rect.left) / rect.width - 0.5;
+      const yPct = (e.clientY - rect.top) / rect.height - 0.5;
+
+      gsap.to(card, {
+        rotationX: -yPct * 8,
+        rotationY: xPct * 8,
+        duration: 0.35,
+        ease: 'power2.out',
+        overwrite: 'auto'
+      });
+    }, { passive: true });
+
+    card.addEventListener('mouseleave', () => {
+      gsap.to(card, {
+        rotationX: 0,
+        rotationY: 0,
+        duration: 0.55,
+        ease: 'power2.out',
+        overwrite: 'auto'
+      });
+    });
+  });
+
+  const projectCards = document.querySelectorAll('.project-card');
+  projectCards.forEach((card) => {
+    const img = card.querySelector('.project-image');
+
+    const handleTilt = (clientX, clientY) => {
+      const rect = card.getBoundingClientRect();
+      const xPct = (clientX - rect.left) / rect.width - 0.5;
+      const yPct = (clientY - rect.top) / rect.height - 0.5;
+
+      gsap.to(card, {
+        rotationX: -yPct * 6,
+        rotationY: xPct * 6,
+        duration: 0.4,
+        ease: 'power2.out',
+        overwrite: 'auto'
+      });
+
+      if (img) {
+        gsap.to(img, {
+          x: -xPct * 12,
+          y: -yPct * 12,
+          duration: 0.5,
+          ease: 'power2.out',
+          overwrite: 'auto'
+        });
+      }
+    };
+
+    const resetTilt = () => {
+      gsap.to(card, {
+        rotationX: 0,
+        rotationY: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+        overwrite: 'auto'
+      });
+      if (img) {
+        gsap.to(img, {
+          x: 0,
+          y: 0,
+          duration: 0.6,
+          ease: 'power2.out',
+          overwrite: 'auto'
+        });
+      }
+    };
+
+    card.addEventListener('mousemove', (e) => handleTilt(e.clientX, e.clientY), { passive: true });
+    card.addEventListener('mouseleave', resetTilt);
+  });
+}
+
+function initMagneticElements() {
+  const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!isFinePointer) return;
+
+  const magneticBtns = document.querySelectorAll('.btn--primary, .btn--telemetry-copy, .theme-toggle, .nav-menu-btn, .social-link, .nav-monogram, .footer-back-to-top');
+  magneticBtns.forEach((el) => {
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = (e.clientX - (rect.left + rect.width / 2)) * 0.28;
+      const y = (e.clientY - (rect.top + rect.height / 2)) * 0.28;
+
+      gsap.to(el, {
+        x: x,
+        y: y,
+        duration: 0.3,
+        ease: 'power2.out',
+        overwrite: 'auto'
+      });
+    }, { passive: true });
+
+    el.addEventListener('mouseleave', () => {
+      gsap.to(el, {
+        x: 0,
+        y: 0,
+        duration: 0.6,
+        ease: 'elastic.out(1, 0.45)',
+        overwrite: 'auto'
+      });
+    });
+  });
 }

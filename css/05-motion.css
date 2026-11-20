@@ -1,6 +1,3 @@
-/* 05-motion.css — Cinematic Motion & Architectural Choreography */
-
-/* ---------- A. CINEMATIC SHUTTER OVERLAY ---------- */
 .atelier-shutter {
   display: none;
   position: fixed;
@@ -21,6 +18,20 @@ body.motion-ready:not(.reduced-motion) .atelier-shutter {
   will-change: transform;
 }
 
+.shutter-center-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 14px var(--accent), 0 0 28px var(--accent);
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: center center;
+  z-index: 10001;
+  pointer-events: none;
+}
+
 .shutter-calibration {
   position: absolute;
   inset: 0;
@@ -28,28 +39,121 @@ body.motion-ready:not(.reduced-motion) .atelier-shutter {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--space-2);
-  z-index: 10000;
+  gap: var(--space-3);
+  z-index: 10002;
   pointer-events: none;
-  font-family: var(--font-mono);
   color: var(--accent);
   text-align: center;
+  padding: 0 var(--space-6);
 }
 
-.shutter-mono-code {
-  font-size: 0.8125rem;
+.shutter-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--accent);
+  background: var(--surface-panel);
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: var(--space-2);
+  box-shadow: 0 0 20px rgba(193, 139, 97, 0.25);
+}
+
+.shutter-brand-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-weight: 700;
   letter-spacing: var(--tracking-widest);
   text-transform: uppercase;
-  opacity: 0.9;
+  color: var(--palette-warm-ivory);
 }
 
-.shutter-mono-status {
+.shutter-brand-sub {
+  font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--palette-muted-gray);
   letter-spacing: var(--tracking-wide);
+  color: var(--palette-muted-gray);
+  text-transform: uppercase;
 }
 
-/* ---------- B. BLUEPRINT CANVAS & COPPER LINE ---------- */
+.shutter-progress-wrap {
+  width: 180px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  margin-top: var(--space-3);
+  position: relative;
+  overflow: hidden;
+}
+
+.shutter-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.shutter-counter {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: var(--tracking-widest);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.section {
+  position: relative;
+  overflow: hidden;
+  contain: paint;
+  isolation: isolate;
+}
+
+@media (min-width: 992px) {
+  .section--mind {
+    contain: none;
+    isolation: auto;
+    overflow: visible;
+  }
+}
+
+.section-watermark {
+  position: absolute;
+  top: clamp(1.5rem, 3.5vw, 2.75rem);
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  clip-path: inset(0 0 0 0);
+  z-index: 0;
+  white-space: nowrap;
+  opacity: 0.14;
+  transition: opacity var(--transition-theme);
+  user-select: none;
+}
+
+[data-theme="dark"] .section-watermark {
+  opacity: 0.12;
+}
+
+.section-watermark span {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7.5vw, 6.75rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--text-primary);
+  will-change: transform;
+}
+
 .blueprint-grid {
   position: absolute;
   inset: 0;
@@ -58,7 +162,7 @@ body.motion-ready:not(.reduced-motion) .atelier-shutter {
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
-  opacity: 0.1;
+  opacity: 0.12;
   color: var(--surface-rule);
   transition: opacity var(--transition-theme);
 }
@@ -74,10 +178,15 @@ body.motion-ready:not(.reduced-motion) .atelier-shutter {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 6px;
+  height: 4px;
   pointer-events: none;
-  z-index: 1;
+  z-index: 10;
   overflow: visible;
+}
+
+.copper-accent-line .copper-base {
+  stroke: var(--surface-border);
+  stroke-width: 1;
 }
 
 .copper-accent-line .copper-track {
@@ -85,11 +194,12 @@ body.motion-ready:not(.reduced-motion) .atelier-shutter {
   stroke-width: 2;
   stroke-dasharray: 1200;
   stroke-dashoffset: 0;
+  filter: drop-shadow(0 0 4px var(--accent));
 }
 
 .copper-accent-line .copper-flare {
   fill: var(--accent);
-  filter: drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 12px var(--accent));
+  filter: drop-shadow(0 0 8px var(--accent)) drop-shadow(0 0 16px var(--accent));
   opacity: 0;
 }
 
@@ -103,31 +213,30 @@ body.motion-ready:not(.reduced-motion) .atelier-shutter {
   z-index: 2;
 }
 
-/* ---------- C. HERO INITIAL STATES ---------- */
 body.motion-ready .hero-reveal {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(24px);
 }
 
 body.motion-ready .hero-reveal--eyebrow {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(-14px);
 }
 
 body.motion-ready .hero-reveal--name {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(32px);
   clip-path: inset(0 100% 0 0);
 }
 
 body.motion-ready .hero-reveal--avatar {
   opacity: 0;
-  transform: scale(0.85);
+  transform: scale(0.8) rotate(-4deg);
 }
 
 body.motion-ready .hero-reveal--cta {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(20px);
 }
 
 body.motion-ready .blueprint-grid {
@@ -138,12 +247,16 @@ body.motion-ready .copper-accent-line .copper-track {
   stroke-dashoffset: 1200;
 }
 
-/* ---------- D. SECTION RULER LINES ---------- */
+.section-title {
+  display: inline-block;
+  will-change: transform, opacity, letter-spacing, clip-path;
+}
+
 .section-title-ruler {
   height: 2px;
   width: 100%;
-  max-width: 240px;
-  background: var(--surface-rule);
+  max-width: 280px;
+  background: var(--accent);
   margin-top: var(--space-2);
   margin-bottom: var(--space-6);
   transform-origin: left center;
@@ -152,27 +265,27 @@ body.motion-ready .copper-accent-line .copper-track {
 }
 
 .section-title-ruler::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 48px;
-  height: 100%;
-  background: var(--accent);
+  content: none;
 }
 
 body.motion-ready .section-title-ruler {
   transform: scaleX(0);
 }
 
-/* ---------- E. MIND (02) — 3D DRAFTING TABLE ---------- */
 .mind-cards {
-  perspective: 1000px;
+  perspective: 1600px;
+}
+
+.mind-card {
+  cursor: default;
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow, border-color, opacity;
+  transition: border-color var(--transition-base),
+    box-shadow var(--transition-base);
 }
 
 body.motion-ready .mind-card {
   opacity: 0;
-  will-change: transform, opacity;
 }
 
 .mind-bio {
@@ -185,24 +298,99 @@ body.motion-ready .mind-card {
   border-left-color: var(--accent);
 }
 
-/* ---------- F. TOOLKIT (03) — MECHANICAL MATRIX ---------- */
 body.motion-ready .toolkit-domain {
   will-change: transform, opacity;
 }
 
+.toolkit-domain {
+  position: relative;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.toolkit-domain:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .toolkit-domain:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
 body.motion-ready .toolkit-tag {
   opacity: 0;
-  transform: scale(0.4);
+  transform: scale(0.35) translateY(12px);
   will-change: transform, opacity;
 }
 
-/* ---------- G. WORKS (04) — BLUEPRINT DRAWINGS ---------- */
+.toolkit-tag {
+  cursor: default;
+  transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.toolkit-tag:hover {
+  background-color: var(--accent-surface);
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-2px) scale(1.06);
+  box-shadow: 0 3px 10px rgba(193, 139, 97, 0.16);
+}
+
+.works-grid {
+  perspective: 1400px;
+}
+
 .project-card {
+  position: relative;
   overflow: hidden;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow, border-color;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.project-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 16px 40px rgba(139, 94, 50, 0.16), 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .project-card:hover {
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.6), 0 0 20px rgba(193, 139, 97, 0.2);
+}
+
+.project-card:hover .project-card-action {
+  color: var(--accent);
+  transform: translateX(6px) translateZ(24px);
+}
+
+.project-card .project-card-header {
+  transform: translateZ(16px);
+  transform-style: preserve-3d;
+}
+
+.project-card .project-id {
+  transform: translateZ(26px);
+}
+
+.project-card .project-title {
+  transform: translateZ(20px);
+}
+
+.project-card .project-image-wrapper {
+  transform: translateZ(10px);
+}
+
+.project-card .project-body {
+  transform: translateZ(14px);
+  transform-style: preserve-3d;
+}
+
+.project-card .project-card-action {
+  transform: translateZ(22px);
 }
 
 .project-image-wrapper {
   overflow: hidden;
+  position: relative;
 }
 
 .project-image {
@@ -216,126 +404,279 @@ body.motion-ready .project-card {
 
 body.motion-ready .project-card--featured {
   opacity: 0;
-  transform: scale(0.92) translateY(50px);
 }
 
-/* ---------- H. PEOPLE (05) — SCROLL TIMELINE ---------- */
-.timeline {
-  position: relative;
-}
-
-.timeline::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 7px;
-  width: 2px;
-  background: var(--surface-border);
-  z-index: 0;
-}
-
-.timeline-progress-gauge {
-  position: absolute;
-  top: 0;
-  left: 7px;
-  width: 2px;
-  height: 0%;
-  background: var(--accent);
-  z-index: 1;
-  box-shadow: 0 0 6px var(--accent);
-}
-
-body.motion-ready .timeline-entry {
+body.motion-ready .ledger-row {
   opacity: 0;
-  transform: translateX(-30px);
   will-change: transform, opacity;
 }
 
-body.motion-ready .timeline-node {
-  transform: scale(0);
+body.motion-ready .academic-card {
   opacity: 0;
-  will-change: transform, opacity, box-shadow;
+  will-change: transform, opacity;
 }
 
-/* ---------- I. MICRO-INTERACTIONS & HOVER ---------- */
+body.motion-ready .academic-dossier-header {
+  opacity: 0;
+  transform: translateY(18px);
+  will-change: transform, opacity;
+}
+
 .btn--primary {
-  transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base), color var(--transition-base);
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  transition: transform var(--transition-fast), box-shadow var(--transition-base), background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base);
 }
 
 .btn--primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(193, 139, 97, 0.28);
+  box-shadow: 0 8px 24px rgba(193, 139, 97, 0.32);
 }
 
 .btn--primary:active {
-  transform: translateY(0);
-}
-
-.project-card {
-  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
-}
-
-.project-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-  border-color: var(--accent);
-}
-
-.project-card:hover .project-image {
-  transform: scale(1.04);
-}
-
-[data-theme="dark"] .project-card:hover {
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
-}
-
-.mind-card {
-  transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
-}
-
-.mind-card:hover {
-  transform: translateY(-4px) scale(1.015);
-  border-color: var(--accent);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07);
-}
-
-[data-theme="dark"] .mind-card:hover {
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32);
+  transform: translateY(1px) scale(0.98);
 }
 
 .social-link {
-  transition: color var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
+  will-change: transform;
+  transition: color var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base);
 }
 
 .social-link:hover {
   color: var(--accent);
   border-color: var(--accent);
-  transform: translateX(5px);
+  box-shadow: 0 6px 18px rgba(193, 139, 97, 0.25);
 }
 
-.toolkit-tag {
-  transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-fast);
+.social-link:hover .social-icon {
+  transform: scale(1.15);
 }
 
-.toolkit-tag:hover {
-  background-color: var(--accent-surface);
+.social-icon {
+  transition: transform var(--transition-base);
+}
+
+.nav-monogram {
+  will-change: transform;
+  transition: border-color var(--transition-base), color var(--transition-base);
+}
+
+.theme-toggle {
+  will-change: transform;
+  transition: border-color var(--transition-base), color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
   color: var(--accent);
+  box-shadow: 0 2px 10px rgba(193, 139, 97, 0.25);
+}
+
+.connection-layout {
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.connection-layout:hover {
   border-color: var(--accent);
-  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.06);
 }
 
-.timeline-node {
-  transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+[data-theme="dark"] .connection-layout:hover {
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
 }
 
-.timeline-entry:hover .timeline-node {
+@media (hover: hover) and (pointer: fine) {
+  html.has-custom-cursor:not(.dialog-open),
+  html.has-custom-cursor:not(.dialog-open) body:not(.dialog-open),
+  html.has-custom-cursor:not(.dialog-open) a,
+  html.has-custom-cursor:not(.dialog-open) button,
+  html.has-custom-cursor:not(.dialog-open) [role="button"],
+  html.has-custom-cursor:not(.dialog-open) input {
+    cursor: none !important;
+  }
+}
+
+body.dialog-open,
+body.dialog-open *,
+dialog[open],
+dialog[open] * {
+  cursor: auto !important;
+}
+
+body.dialog-open .atelier-cursor {
+  opacity: 0 !important;
+  display: none !important;
+}
+
+.atelier-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.atelier-cursor.is-active {
+  opacity: 1;
+}
+
+.atelier-cursor-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  margin-left: -3px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  transition: transform 0.15s ease, background-color 0.15s ease, opacity 0.15s ease;
+}
+
+.atelier-cursor-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  margin-top: -16px;
+  margin-left: -16px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.25s var(--ease-out), height 0.25s var(--ease-out), margin 0.25s var(--ease-out), background-color 0.25s var(--ease-out), border-color 0.25s var(--ease-out), transform 0.2s ease;
+}
+
+.atelier-cursor-text {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: var(--tracking-widest);
+  color: #ffffff;
+  display: none;
+  text-transform: uppercase;
+}
+
+.atelier-cursor.is-hover-link .atelier-cursor-ring {
+  width: 46px;
+  height: 46px;
+  margin-top: -23px;
+  margin-left: -23px;
+  background-color: var(--accent-surface);
   border-color: var(--accent);
-  box-shadow: 0 0 0 5px var(--accent-surface);
-  transform: scale(1.25);
 }
 
-/* ---------- J. REDUCED MOTION OVERRIDES ---------- */
+.atelier-cursor.is-hover-link .atelier-cursor-dot {
+  transform: scale(0.6);
+}
+
+.atelier-cursor.is-hover-btn .atelier-cursor-ring {
+  width: 48px;
+  height: 48px;
+  margin-top: -24px;
+  margin-left: -24px;
+  background-color: var(--accent-surface);
+  border-color: var(--accent);
+}
+
+.atelier-cursor.is-hover-btn .atelier-cursor-dot {
+  transform: scale(1.6);
+}
+
+.atelier-cursor.is-hover-card .atelier-cursor-ring {
+  width: 60px;
+  height: 60px;
+  margin-top: -30px;
+  margin-left: -30px;
+  background-color: var(--accent);
+  border-color: transparent;
+  box-shadow: 0 4px 20px rgba(193, 139, 97, 0.45);
+}
+
+.atelier-cursor.is-hover-card .atelier-cursor-dot {
+  opacity: 0;
+}
+
+.atelier-cursor.is-hover-card .atelier-cursor-text {
+  display: block;
+}
+
+.atelier-cursor.is-hover-cert .atelier-cursor-ring {
+  width: 60px;
+  height: 60px;
+  margin-top: -30px;
+  margin-left: -30px;
+  background-color: var(--accent);
+  border-color: transparent;
+  box-shadow: 0 4px 20px rgba(193, 139, 97, 0.45);
+}
+
+.atelier-cursor.is-hover-cert .atelier-cursor-dot {
+  opacity: 0;
+}
+
+.atelier-cursor.is-hover-cert .atelier-cursor-text {
+  display: block;
+}
+
+.atelier-cursor.has-label .atelier-cursor-ring {
+  width: 60px;
+  height: 60px;
+  margin-top: -30px;
+  margin-left: -30px;
+  background-color: var(--accent);
+  border-color: transparent;
+  box-shadow: 0 4px 20px rgba(193, 139, 97, 0.45);
+}
+
+.atelier-cursor.has-label .atelier-cursor-dot {
+  opacity: 0;
+}
+
+.atelier-cursor.has-label .atelier-cursor-text {
+  display: block;
+}
+
+@media (pointer: coarse), (hover: none) {
+  .atelier-cursor {
+    display: none !important;
+  }
+}
+
+body.motion-ready .btn--primary,
+body.motion-ready .social-link,
+body.motion-ready .footer-back-to-top,
+body.motion-ready .nav-menu-btn,
+body.motion-ready .theme-toggle {
+  transition: border-color var(--transition-base),
+    background-color var(--transition-base),
+    color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+body.motion-ready .btn--primary:hover,
+body.motion-ready .social-link:hover,
+body.motion-ready .footer-back-to-top:hover,
+body.motion-ready .project-card:hover,
+body.motion-ready .mind-card:hover {
+  transform: none;
+}
+
+body.motion-ready .project-image {
+  transition: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   body.motion-ready .hero-reveal,
   body.motion-ready .hero-reveal--eyebrow,
@@ -347,12 +688,16 @@ body.motion-ready .timeline-node {
   body.motion-ready .toolkit-domain,
   body.motion-ready .toolkit-tag,
   body.motion-ready .project-card,
-  body.motion-ready .timeline-entry,
-  body.motion-ready .timeline-node,
-  body.motion-ready .section-title-ruler {
+  body.motion-ready .ledger-row,
+  body.motion-ready .academic-card,
+  body.motion-ready .academic-dossier-header,
+  body.motion-ready .section-title-ruler,
+  .section-watermark span {
     opacity: 1 !important;
     transform: none !important;
     clip-path: none !important;
+    filter: none !important;
+    animation: none !important;
   }
 
   body.motion-ready .copper-accent-line .copper-track {
@@ -360,12 +705,9 @@ body.motion-ready .timeline-node {
   }
 
   body.motion-ready .copper-accent-line .copper-flare,
-  .atelier-shutter {
+  .atelier-shutter,
+  .atelier-cursor {
     display: none !important;
-  }
-
-  .timeline-progress-gauge {
-    height: 100% !important;
   }
 
   .btn--primary:hover,
@@ -373,7 +715,10 @@ body.motion-ready .timeline-node {
   .mind-card:hover,
   .social-link:hover,
   .toolkit-tag:hover,
-  .timeline-entry:hover .timeline-node {
+  .ledger-row:hover,
+  .academic-card:hover,
+  .nav-brand:hover .nav-monogram,
+  .theme-toggle:hover {
     transform: none !important;
   }
 }
