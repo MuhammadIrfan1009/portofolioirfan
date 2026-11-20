@@ -752,8 +752,8 @@ main#main-content {
 }
 
 .btn--secondary {
-  border: 1px solid rgba(212, 163, 115, 0.35);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 243, 239, 0.85) 100%);
+  border: 1px solid rgba(168, 93, 42, 0.35);
+  background: linear-gradient(135deg, rgba(228, 222, 212, 0.95) 0%, rgba(221, 214, 202, 0.85) 100%);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   color: var(--text-primary);

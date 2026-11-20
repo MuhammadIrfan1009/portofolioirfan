@@ -88,13 +88,13 @@ export function initAtelier3D() {
   let pulseTimer = 0;
 
   // Cache theme colors, update on themechange event
-  let cachedCopperRgb = '139, 94, 50';
-  let cachedAxisRgb = '32, 36, 38';
+  let cachedCopperRgb = '168, 93, 42';
+  let cachedAxisRgb = '30, 27, 24';
 
   function updateThemeColors() {
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    cachedCopperRgb = isDark ? '193, 139, 97' : '139, 94, 50';
-    cachedAxisRgb = isDark ? '234, 231, 223' : '32, 36, 38';
+    cachedCopperRgb = isDark ? '193, 139, 97' : '168, 93, 42';
+    cachedAxisRgb = isDark ? '234, 231, 223' : '30, 27, 24';
   }
 
   updateThemeColors();

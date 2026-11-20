@@ -46,12 +46,12 @@ export function initMindApparatus() {
   function getThemeColors() {
     if (isLightMode()) {
       return {
-        accent: '#b37547',
-        accentAlpha: 'rgba(179, 117, 71, ',
-        glow: 'rgba(179, 117, 71, 0.12)',
-        line: 'rgba(100, 116, 139, 0.35)',
-        vertex: '#0f172a',
-        grid: 'rgba(100, 116, 139, 0.15)'
+        accent: '#a85d2a',
+        accentAlpha: 'rgba(168, 93, 42, ',
+        glow: 'rgba(168, 93, 42, 0.15)',
+        line: 'rgba(74, 68, 60, 0.35)',
+        vertex: '#1e1b18',
+        grid: 'rgba(201, 193, 180, 0.45)'
       };
     }
     return {

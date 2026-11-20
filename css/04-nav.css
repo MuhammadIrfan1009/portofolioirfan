@@ -11,7 +11,7 @@ main#main-content {
   max-width: 100vw;
   height: var(--header-height);
   z-index: 1000;
-  background: rgba(245, 243, 239, 0.82);
+  background: rgba(237, 232, 223, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--surface-border);
@@ -24,7 +24,7 @@ main#main-content {
 }
 
 .site-header--scrolled {
-  background: rgba(245, 243, 239, 0.94);
+  background: rgba(237, 232, 223, 0.96);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom-color: var(--surface-rule);
